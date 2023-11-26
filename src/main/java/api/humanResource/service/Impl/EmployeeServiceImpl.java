@@ -103,14 +103,7 @@ class EmployeeServiceImpl implements EmployeeService {
 
     }
 
-    @Override
-    public void login(EmployeeLoginRequest employeeLoginRequest) {
-        EmployeeEntity employeeEntity = employeeRepository.findByUsername(employeeLoginRequest.getUsername());
 
-        if (!employeeLoginRequest.getPassword().equals(employeeEntity.getPassword())) {
-            throw new EmployeeException("password or username wrong");
-        }
-    }
 
     @Override
     public List<EmployeesResponse> getAllEmployees() {

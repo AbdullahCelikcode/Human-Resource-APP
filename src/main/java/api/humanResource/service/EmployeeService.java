@@ -15,7 +15,7 @@ public interface EmployeeService {
 
     void updatePassword(EmployeePasswordUpdateRequest employeePasswordUpdateRequest, String employeeId) ;
 
-    void login(EmployeeLoginRequest employeeLoginRequest);
+
 
     List<EmployeesResponse> getAllEmployees();
 }

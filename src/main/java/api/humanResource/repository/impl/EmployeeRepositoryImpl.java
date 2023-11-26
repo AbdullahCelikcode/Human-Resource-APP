@@ -4,6 +4,7 @@ import api.humanResource.model.entity.EmployeeEntity;
 import api.humanResource.repository.EmployeeRepository;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
+import org.sql2o.Query;
 import org.sql2o.Sql2o;
 
 import java.util.List;
@@ -36,8 +37,8 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
     public void createEmployee(EmployeeEntity employeeEntity) {
 
 
-        try (Connection con = sql2o.beginTransaction()) {
-            con.createQuery(insertQuery)
+        try (Connection con = sql2o.beginTransaction(); Query query = con.createQuery(insertQuery)) {
+            query
                     .addParameter("id", employeeEntity.getId())
                     .addParameter("firstname", employeeEntity.getFirstname())
                     .addParameter("lastname", employeeEntity.getLastname())

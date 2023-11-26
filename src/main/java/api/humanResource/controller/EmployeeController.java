@@ -33,9 +33,9 @@ class EmployeeController {
         employeeService.updateEmployee(employeeUpdateRequest,employeeId);
     }
 
-    @PutMapping("/employee/password/{employeeId}")
-    public ResponseEntity<String> updatePassword(@RequestBody EmployeePasswordUpdateRequest employeeUpdateRequest, @PathVariable String employeeId)  {
-        employeeService.updatePassword(employeeUpdateRequest,employeeId);
+    @PutMapping("/employee/password")
+    public ResponseEntity<String> updatePassword(@RequestBody EmployeePasswordUpdateRequest employeeUpdateRequest)  {
+        employeeService.updatePassword(employeeUpdateRequest);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

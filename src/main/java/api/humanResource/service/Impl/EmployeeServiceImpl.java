@@ -1,14 +1,13 @@
 package api.humanResource.service.Impl;
 
-import api.humanResource.util.exception.EmployeeException;
 import api.humanResource.model.entity.EmployeeEntity;
 import api.humanResource.model.request.EmployeeCreateRequest;
-import api.humanResource.model.request.EmployeeLoginRequest;
 import api.humanResource.model.request.EmployeePasswordUpdateRequest;
 import api.humanResource.model.request.EmployeeUpdateRequest;
 import api.humanResource.model.response.EmployeesResponse;
 import api.humanResource.repository.EmployeeRepository;
 import api.humanResource.service.EmployeeService;
+import api.humanResource.util.exception.EmployeeException;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
@@ -88,10 +87,10 @@ class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void updatePassword(EmployeePasswordUpdateRequest employeePasswordUpdateRequest, String employeeId) {
+    public void updatePassword(EmployeePasswordUpdateRequest employeePasswordUpdateRequest) {
 
 
-        EmployeeEntity employeeEntity = employeeRepository.findById(employeeId);
+        EmployeeEntity employeeEntity = employeeRepository.findByUsername(employeePasswordUpdateRequest.getUsername());
 
         if (!employeeEntity.getPassword().equals(employeePasswordUpdateRequest.getOldPassword())) {
 
@@ -102,7 +101,6 @@ class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.updateEmployee(employeeEntity);
 
     }
-
 
 
     @Override

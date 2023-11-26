@@ -13,7 +13,7 @@ public interface EmployeeService {
 
     void updateEmployee(EmployeeUpdateRequest employeeUpdateRequest,String employeeId);
 
-    void updatePassword(EmployeePasswordUpdateRequest employeePasswordUpdateRequest, String employeeId) ;
+    void updatePassword(EmployeePasswordUpdateRequest employeePasswordUpdateRequest) ;
 
 
 

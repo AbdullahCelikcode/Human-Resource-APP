@@ -1,4 +1,4 @@
-package api.humanresource.service.Impl;
+package api.humanresource.service.impl;
 
 import api.humanresource.model.entity.EmployeeEntity;
 import api.humanresource.model.request.EmployeeLoginRequest;

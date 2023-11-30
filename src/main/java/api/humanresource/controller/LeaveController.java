@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/leave")
 public class LeaveController {
     private final LeaveService leaveService;
 
@@ -17,12 +16,12 @@ public class LeaveController {
         this.leaveService = leaveService;
     }
 
-    @PostMapping("")
+    @PostMapping("/leave")
     public void takeLeave(@RequestBody @Valid LeaveCreateRequest leaveCreateRequest) {
         leaveService.add(leaveCreateRequest);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/leave/{id}")
     public List<LeaveResponse> getLeaves(@PathVariable String id) {
         return leaveService.getLeaves(id);
 

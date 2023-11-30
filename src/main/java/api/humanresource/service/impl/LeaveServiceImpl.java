@@ -9,7 +9,6 @@ import api.humanresource.util.exception.GlobalException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class LeaveServiceImpl implements LeaveService {
@@ -39,7 +38,7 @@ public class LeaveServiceImpl implements LeaveService {
         List<LeaveEntity> leaveEntities = leaveRepository.getLeaves(id);
         return leaveEntities.stream()
                 .map(leaveEntity -> new LeaveResponse(leaveEntity.getStartDate(), leaveEntity.getFinishDate(), leaveEntity.getType()))
-                .collect(Collectors.toList());
+                .toList();
 
 
     }

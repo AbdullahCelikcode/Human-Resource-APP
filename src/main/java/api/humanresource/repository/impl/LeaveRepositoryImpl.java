@@ -31,7 +31,7 @@ public class LeaveRepositoryImpl implements LeaveRepository {
                     .addParameter(LeaveMapper.FINISH_DATE.getField(), leaveEntity.getFinishDate())
                     .addParameter(LeaveMapper.TYPE.getField(), leaveEntity.getType())
                     .addParameter(LeaveMapper.EXPLANATION.getField(), leaveEntity.getExplanation())
-                    .addParameter(LeaveMapper.EMPOYEEID.getField(), leaveEntity.getEmployeeId())
+                    .addParameter(LeaveMapper.EMPLOYEE_ID.getField(), leaveEntity.getEmployeeId())
                     .executeUpdate();
 
         }
@@ -41,7 +41,7 @@ public class LeaveRepositoryImpl implements LeaveRepository {
     public List<LeaveEntity> getLeaves(String id) {
         try (Connection con = sql2o.open(); Query query = con.createQuery(GET_LEAVES_QUERY)) {
             return query
-                    .addParameter(LeaveMapper.EMPOYEEID.getField(), id)
+                    .addParameter(LeaveMapper.EMPLOYEE_ID.getField(), id)
                     .setColumnMappings(LeaveMapper.getMapping())
                     .executeAndFetch(LeaveEntity.class);
         }

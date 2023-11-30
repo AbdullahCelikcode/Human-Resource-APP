@@ -17,7 +17,7 @@ public class EmployeeCreateRequest {
     @NotBlank
     private String email;
 
-
+    @NotNull
     private Gender gender;
     @NotNull
     private Role role;

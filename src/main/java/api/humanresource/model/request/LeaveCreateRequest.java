@@ -13,6 +13,7 @@ public class LeaveCreateRequest {
     @NotNull
     @Future(message = "finish date can not be past date ")
     private Date finishDate;
+    @NotNull
     private LeaveType type;
     private String explanation;
     @NotNull

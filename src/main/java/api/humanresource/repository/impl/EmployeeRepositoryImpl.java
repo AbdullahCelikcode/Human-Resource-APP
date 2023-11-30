@@ -13,18 +13,18 @@ import java.util.List;
 
 @Repository
 class EmployeeRepositoryImpl implements EmployeeRepository {
-    static final String INSERT_QUERY = "INSERT INTO EMPLOYEE (ID,FIRST_NAME,LAST_NAME,EMAIL,GENDER,ROLE,USERNAME,PASSWORD ) " +
+    private  static final String INSERT_QUERY = "INSERT INTO EMPLOYEE (ID,FIRST_NAME,LAST_NAME,EMAIL,GENDER,ROLE,USERNAME,PASSWORD ) " +
             "VALUES (:id,:firstname,:lastname,:email,:gender,:role,:username,:password)";
-    static final String UPDATE_QUERY =
+    private static final String UPDATE_QUERY =
             "UPDATE EMPLOYEE SET FIRST_NAME=:firstname,LAST_NAME=:lastname,EMAIL=:email,GENDER=:gender,ROLE=:role," +
                     "USERNAME=:username,PASSWORD=:password WHERE ID=:id ";
-    static final String FIND_BY_ID_QUERY = "SELECT ID, FIRST_NAME, LAST_NAME, EMAIL, GENDER, ROLE ,USERNAME, PASSWORD FROM EMPLOYEE WHERE id=:id ";
+    private  static final String FIND_BY_ID_QUERY = "SELECT ID, FIRST_NAME, LAST_NAME, EMAIL, GENDER, ROLE ,USERNAME, PASSWORD FROM EMPLOYEE WHERE id=:id ";
 
-    static final String FIND_BY_USERNAME_QUERY = "SELECT ID, FIRST_NAME, LAST_NAME, EMAIL, GENDER, ROLE ,USERNAME, PASSWORD FROM EMPLOYEE WHERE USERNAME=:username ";
+    private static final String FIND_BY_USERNAME_QUERY = "SELECT ID, FIRST_NAME, LAST_NAME, EMAIL, GENDER, ROLE ,USERNAME, PASSWORD FROM EMPLOYEE WHERE USERNAME=:username ";
 
-    static final String FIND_BY_EMAIL_QUERY = "SELECT ID, FIRST_NAME, LAST_NAME, EMAIL, GENDER, ROLE ,USERNAME, PASSWORD FROM EMPLOYEE WHERE EMAIL=:email ";
+    private  static final String FIND_BY_EMAIL_QUERY = "SELECT ID, FIRST_NAME, LAST_NAME, EMAIL, GENDER, ROLE ,USERNAME, PASSWORD FROM EMPLOYEE WHERE EMAIL=:email ";
 
-    static final String FIND_ALL_QUERY = "SELECT ID, FIRST_NAME, LAST_NAME, EMAIL, GENDER, ROLE ,USERNAME, PASSWORD FROM EMPLOYEE ";
+    private static final String FIND_ALL_QUERY = "SELECT ID, FIRST_NAME, LAST_NAME, EMAIL, GENDER, ROLE ,USERNAME, PASSWORD FROM EMPLOYEE ";
 
 
     private final Sql2o sql2o;

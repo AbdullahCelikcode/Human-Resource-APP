@@ -2,7 +2,7 @@ package api.humanresource.model.entity;
 
 import api.humanresource.model.enums.LeaveType;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class LeaveEntity {
     private Integer id;
@@ -12,15 +12,24 @@ public class LeaveEntity {
 
     private String explanation;
 
-    private String employeeID;
+    private String employeeId;
 
-    public LeaveEntity(Integer id, Date startDate, Date finishDate, LeaveType type, String explanation, String employeeID) {
+    public LeaveEntity(Integer id, Date startDate, Date finishDate, LeaveType type, String explanation, String employeeId) {
         this.id = id;
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.type = type;
         this.explanation = explanation;
-        this.employeeID = employeeID;
+        this.employeeId = employeeId;
+    }
+
+    public LeaveEntity(Date startDate, Date finishDate, LeaveType type, String explanation, String employeeId) {
+
+        this.startDate = startDate;
+        this.finishDate = finishDate;
+        this.type = type;
+        this.explanation = explanation;
+        this.employeeId = employeeId;
     }
 
     public Integer getId() {
@@ -63,11 +72,11 @@ public class LeaveEntity {
         this.explanation = explanation;
     }
 
-    public String getEmployeeID() {
-        return employeeID;
+    public String getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEmployeeID(String employeeID) {
-        this.employeeID = employeeID;
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
     }
 }

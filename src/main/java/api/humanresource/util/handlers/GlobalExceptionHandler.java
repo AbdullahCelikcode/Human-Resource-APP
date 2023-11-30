@@ -1,6 +1,6 @@
 package api.humanresource.util.handlers;
 
-import api.humanresource.util.exception.EmployeeException;
+import api.humanresource.util.exception.GlobalException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -22,9 +22,9 @@ public class GlobalExceptionHandler {
         return errorMap;
     }
 
-    @ExceptionHandler(EmployeeException.class)
+    @ExceptionHandler(GlobalException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<String> handleMethodArgumentException(final EmployeeException exception) {
+    public ResponseEntity<String> handleMethodArgumentException(final GlobalException exception) {
 
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)

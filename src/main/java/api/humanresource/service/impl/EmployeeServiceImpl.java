@@ -7,7 +7,7 @@ import api.humanresource.model.request.EmployeeUpdateRequest;
 import api.humanresource.model.response.EmployeesResponse;
 import api.humanresource.repository.EmployeeRepository;
 import api.humanresource.service.EmployeeService;
-import api.humanresource.util.exception.EmployeeException;
+import api.humanresource.util.exception.GlobalException;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
@@ -76,7 +76,7 @@ class EmployeeServiceImpl implements EmployeeService {
     public void isEmailAlreadyExist(String email) {
 
         if (employeeRepository.findByEmail(email) != null) {
-            throw new EmployeeException("Email is already exist");
+            throw new GlobalException("Email is already exist");
         }
     }
 
@@ -88,7 +88,7 @@ class EmployeeServiceImpl implements EmployeeService {
 
         if (!employeeEntity.getPassword().equals(employeePasswordUpdateRequest.getOldPassword())) {
 
-            throw new EmployeeException("Password Wrong");
+            throw new GlobalException("Password Wrong");
         }
 
         employeeEntity.setPassword(employeePasswordUpdateRequest.getNewPassword());

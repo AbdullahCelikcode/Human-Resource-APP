@@ -2,24 +2,24 @@ package api.humanresource.model.response;
 
 import api.humanresource.model.enums.LeaveType;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class LeaveResponse {
-    private Date startDate;
-    private Date finishDate;
+    private LocalDate startDate;
+    private LocalDate finishDate;
     private LeaveType type;
 
-    public LeaveResponse(Date startDate, Date finishDate, LeaveType type) {
+    public LeaveResponse(LocalDate startDate, LocalDate finishDate, LeaveType type) {
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.type = type;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public Date getFinishDate() {
+    public LocalDate getFinishDate() {
         return finishDate;
     }
 
@@ -27,11 +27,11 @@ public class LeaveResponse {
         return type;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public void setFinishDate(Date finishDate) {
+    public void setFinishDate(LocalDate finishDate) {
         this.finishDate = finishDate;
     }
 

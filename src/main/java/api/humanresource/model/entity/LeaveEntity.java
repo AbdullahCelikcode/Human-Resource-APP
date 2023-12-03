@@ -2,19 +2,20 @@ package api.humanresource.model.entity;
 
 import api.humanresource.model.enums.LeaveType;
 
-import java.sql.Date;
+import java.time.LocalDate;
+
 
 public class LeaveEntity {
     private Integer id;
-    private Date startDate;
-    private Date finishDate;
+    private LocalDate startDate;
+    private LocalDate finishDate;
     private LeaveType type;
 
     private String explanation;
 
     private String employeeId;
 
-    public LeaveEntity(Integer id, Date startDate, Date finishDate, LeaveType type, String explanation, String employeeId) {
+    public LeaveEntity(Integer id, LocalDate startDate, LocalDate finishDate, LeaveType type, String explanation, String employeeId) {
         this.id = id;
         this.startDate = startDate;
         this.finishDate = finishDate;
@@ -23,7 +24,7 @@ public class LeaveEntity {
         this.employeeId = employeeId;
     }
 
-    public LeaveEntity(Date startDate, Date finishDate, LeaveType type, String explanation, String employeeId) {
+    public LeaveEntity(LocalDate startDate, LocalDate finishDate, LeaveType type, String explanation, String employeeId) {
 
         this.startDate = startDate;
         this.finishDate = finishDate;
@@ -40,19 +41,19 @@ public class LeaveEntity {
         this.id = id;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getFinishDate() {
+    public LocalDate getFinishDate() {
         return finishDate;
     }
 
-    public void setFinishDate(Date finishDate) {
+    public void setFinishDate(LocalDate finishDate) {
         this.finishDate = finishDate;
     }
 

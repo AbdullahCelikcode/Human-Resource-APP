@@ -12,9 +12,7 @@ public interface EmployeeService {
 
     void updateEmployee(String id, EmployeeUpdateRequest employeeUpdateRequest);
 
-    void updatePassword(EmployeePasswordUpdateRequest employeePasswordUpdateRequest) ;
-
-
+    void updatePassword(EmployeePasswordUpdateRequest employeePasswordUpdateRequest);
 
     List<EmployeesResponse> getAllEmployees();
 }

@@ -28,7 +28,7 @@ class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void createEmployee(EmployeeCreateRequest employeeCreateRequest) {
-        isEmailAlreadyExist(employeeCreateRequest.getEmail());
+        this.isEmailAlreadyExist(employeeCreateRequest.getEmail());
 
         EmployeeEntity employeeEntity = new EmployeeEntity(
                 UUID.randomUUID().toString(),
@@ -39,27 +39,21 @@ class EmployeeServiceImpl implements EmployeeService {
                 employeeCreateRequest.getRole(),
                 this.generateUsername(),
                 RandomStringUtils.random(9, true, true)
-
         );
         employeeRepository.save(employeeEntity);
     }
 
     private String generateUsername() {
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddhhmmss");
-
         return LocalDateTime.now().format(formatter);
-
-
     }
 
     @Override
     public void updateEmployee(String id, EmployeeUpdateRequest employeeUpdateRequest) {
-
-        EmployeeEntity employeeEntity = employeeRepository.findById(id);
+        EmployeeEntity employeeEntity = employeeRepository.findById(id).orElseThrow(() -> new GlobalException("User not found"));
 
         if (!employeeEntity.getEmail().equals(employeeUpdateRequest.getEmail())) {
-            isEmailAlreadyExist(employeeUpdateRequest.getEmail());
+            this.isEmailAlreadyExist(employeeUpdateRequest.getEmail());
         }
 
         employeeEntity.setFirstname(employeeUpdateRequest.getFirstname());
@@ -69,33 +63,24 @@ class EmployeeServiceImpl implements EmployeeService {
         employeeEntity.setRole(employeeUpdateRequest.getRole());
 
         employeeRepository.update(employeeEntity);
-
-
     }
 
-    public void isEmailAlreadyExist(String email) {
-
-        if (employeeRepository.findByEmail(email) != null) {
+    private void isEmailAlreadyExist(String email) {
+        if (employeeRepository.findByEmail(email).isPresent()) {
             throw new GlobalException("Email is already exist");
         }
     }
 
     @Override
     public void updatePassword(EmployeePasswordUpdateRequest employeePasswordUpdateRequest) {
-
-
-        EmployeeEntity employeeEntity = employeeRepository.findByUsername(employeePasswordUpdateRequest.getUsername());
-
+        EmployeeEntity employeeEntity = employeeRepository.findByUsername(employeePasswordUpdateRequest.getUsername())
+                .orElseThrow(() -> new GlobalException("User not found"));
         if (!employeeEntity.getPassword().equals(employeePasswordUpdateRequest.getOldPassword())) {
-
             throw new GlobalException("Password Wrong");
         }
-
         employeeEntity.setPassword(employeePasswordUpdateRequest.getNewPassword());
         employeeRepository.update(employeeEntity);
-
     }
-
 
     @Override
     public List<EmployeesResponse> getAllEmployees() {
@@ -111,12 +96,8 @@ class EmployeeServiceImpl implements EmployeeService {
                     employee.getRole(),
                     employee.getUsername()
             );
-
             employeesResponses.add(employeesResponse);
         }
-
         return employeesResponses;
     }
-
-
 }

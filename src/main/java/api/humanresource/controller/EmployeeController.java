@@ -6,7 +6,7 @@ import api.humanresource.model.request.EmployeeUpdateRequest;
 import api.humanresource.model.response.EmployeesResponse;
 import api.humanresource.service.EmployeeService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
+import org.hibernate.validator.constraints.UUID;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,24 +24,27 @@ class EmployeeController {
     }
 
     @PostMapping("/employee")
-    public void createEmployee(@Valid @RequestBody EmployeeCreateRequest employeeCreateRequest) {
+    public ResponseEntity<Void> createEmployee(@Valid @RequestBody EmployeeCreateRequest employeeCreateRequest) {
         employeeService.createEmployee(employeeCreateRequest);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/employee/{id}")
-    public void updateEmployee(@PathVariable String id, @RequestBody EmployeeUpdateRequest employeeUpdateRequest) {
+    public ResponseEntity<Void> updateEmployee(@PathVariable @UUID String id, @Valid @RequestBody EmployeeUpdateRequest employeeUpdateRequest) {
         employeeService.updateEmployee(id, employeeUpdateRequest);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/employee/password")
-    public ResponseEntity<String> updatePassword(@RequestBody EmployeePasswordUpdateRequest employeeUpdateRequest) {
+    public ResponseEntity<Void> updatePassword(@RequestBody @Valid EmployeePasswordUpdateRequest employeeUpdateRequest) {
         employeeService.updatePassword(employeeUpdateRequest);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok().build();
     }
 
 
     @GetMapping("/employees")
-    public List<EmployeesResponse> getAllEmployees() {
-        return employeeService.getAllEmployees();
+    public ResponseEntity<List<EmployeesResponse>> getAllEmployees() {
+
+        return ResponseEntity.ok(employeeService.getAllEmployees());
     }
 }

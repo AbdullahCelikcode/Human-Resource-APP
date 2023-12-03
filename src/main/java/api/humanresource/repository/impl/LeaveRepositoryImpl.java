@@ -1,8 +1,8 @@
 package api.humanresource.repository.impl;
 
 import api.humanresource.model.entity.LeaveEntity;
-import api.humanresource.model.mappers.LeaveMapper;
 import api.humanresource.repository.LeaveRepository;
+import api.humanresource.repository.mappers.LeaveMapper;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Query;
@@ -23,8 +23,6 @@ public class LeaveRepositoryImpl implements LeaveRepository {
     }
 
     public void save(LeaveEntity leaveEntity) {
-
-
         try (Connection con = sql2o.open(); Query query = con.createQuery(INSERT_QUERY)) {
             query
                     .addParameter(LeaveMapper.START_DATE.getField(), leaveEntity.getStartDate())
@@ -33,7 +31,6 @@ public class LeaveRepositoryImpl implements LeaveRepository {
                     .addParameter(LeaveMapper.EXPLANATION.getField(), leaveEntity.getExplanation())
                     .addParameter(LeaveMapper.EMPLOYEE_ID.getField(), leaveEntity.getEmployeeId())
                     .executeUpdate();
-
         }
     }
 
@@ -46,6 +43,5 @@ public class LeaveRepositoryImpl implements LeaveRepository {
                     .executeAndFetch(LeaveEntity.class);
         }
     }
-
 }
 

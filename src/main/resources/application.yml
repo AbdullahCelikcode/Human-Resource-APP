@@ -1,8 +1,5 @@
 db:
-  url: jdbc:mysql://localhost:3306/humanresourcedb
-  username: root
-  password: 1234
+  url: jdbc:mysql://localhost:3306/human_resource
+  username: hrapp
+  password: hrpassword
 
-server:
-  error:
-    include-stacktrace: ON_PARAM

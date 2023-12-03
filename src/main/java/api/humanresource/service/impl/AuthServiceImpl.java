@@ -17,10 +17,11 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void login(EmployeeLoginRequest employeeLoginRequest) {
-        EmployeeEntity employeeEntity = employeeRepository.findByUsername(employeeLoginRequest.getUsername());
+        EmployeeEntity employeeEntity = employeeRepository.findByUsername(employeeLoginRequest.getUsername()).
+                orElseThrow(() -> new GlobalException("password or username is wrong"));
 
         if (!employeeLoginRequest.getPassword().equals(employeeEntity.getPassword())) {
-            throw new GlobalException("password or username wrong");
+            throw new GlobalException("password or username is wrong");
         }
     }
 }

@@ -1,4 +1,4 @@
-package api.humanresource.model.mappers;
+package api.humanresource.repository.mappers;
 
 import java.util.HashMap;
 import java.util.Map;

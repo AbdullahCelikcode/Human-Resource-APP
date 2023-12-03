@@ -1,29 +1,37 @@
 package api.humanresource.model.request;
 
 import api.humanresource.model.enums.LeaveType;
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class LeaveCreateRequest {
+
     @NotNull
     @Future(message = "start date can not be past date ")
-    private Date startDate;
+    private LocalDate startDate;
     @NotNull
     @Future(message = "finish date can not be past date ")
-    private Date finishDate;
+    private LocalDate finishDate;
     @NotNull
     private LeaveType type;
     private String explanation;
     @NotNull
     private String employeeId;
 
-    public Date getStartDate() {
+    @AssertTrue(message = "finish date  cannot before start date")
+    private boolean isValid() {
+        return this.startDate.isBefore(this.finishDate);
+    }
+
+
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public Date getFinishDate() {
+    public LocalDate getFinishDate() {
         return finishDate;
     }
 

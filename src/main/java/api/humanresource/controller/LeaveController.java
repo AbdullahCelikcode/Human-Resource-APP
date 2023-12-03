@@ -4,11 +4,14 @@ import api.humanresource.model.request.LeaveCreateRequest;
 import api.humanresource.model.response.LeaveResponse;
 import api.humanresource.service.LeaveService;
 import jakarta.validation.Valid;
+import org.hibernate.validator.constraints.UUID;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/leave")
 public class LeaveController {
     private final LeaveService leaveService;
 
@@ -16,14 +19,15 @@ public class LeaveController {
         this.leaveService = leaveService;
     }
 
-    @PostMapping("/leave")
-    public void takeLeave(@RequestBody @Valid LeaveCreateRequest leaveCreateRequest) {
+    @PostMapping("")
+    public ResponseEntity<Void> takeLeave(@RequestBody @Valid LeaveCreateRequest leaveCreateRequest) {
         leaveService.add(leaveCreateRequest);
+        return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/leave/{id}")
-    public List<LeaveResponse> getLeaves(@PathVariable String id) {
-        return leaveService.getLeaves(id);
+    @GetMapping("{id}")
+    public ResponseEntity<List<LeaveResponse>> getLeaves(@PathVariable @UUID String id) {
+        return ResponseEntity.ok(leaveService.getLeaves(id));
 
     }
 

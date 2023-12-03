@@ -1,13 +1,10 @@
 CREATE DATABASE IF NOT EXISTS HUMAN_RESOURCE;
 
--- Oluşturulan veritabanına bağlanacak kullanıcı oluşturma
-CREATE USER  'hrapp'@'localhost' IDENTIFIED BY 'hrpassword';
+CREATE USER 'hrapp'@'localhost' IDENTIFIED BY 'hrpassword';
 
--- Oluşturulan kullanıcıya oluşturulan veritabanına erişim izni verme
 GRANT ALL PRIVILEGES ON HUMAN_RESOURCE.* TO 'hrapp'@'localhost';
 FLUSH PRIVILEGES;
 
--- Veritabanı seçimi
 USE HUMAN_RESOURCE;
 
 CREATE TABLE `EMPLOYEE`

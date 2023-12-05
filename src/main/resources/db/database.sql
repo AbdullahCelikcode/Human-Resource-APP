@@ -7,7 +7,7 @@ FLUSH PRIVILEGES;
 
 USE HUMAN_RESOURCE;
 
-CREATE TABLE `EMPLOYEE`
+CREATE TABLE IF NOT EXISTS `EMPLOYEE`
 (
     `ID`         VARCHAR(36) PRIMARY KEY,
     `FIRST_NAME` VARCHAR(45)                         NOT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE `EMPLOYEE`
     `PASSWORD`   VARCHAR(45)                         NOT NULL
 );
 
-CREATE TABLE `LEAVE_TABLE`
+CREATE TABLE IF NOT EXISTS  `LEAVE_TABLE`
 (
     `ID`          INT AUTO_INCREMENT PRIMARY KEY,
     `START_DATE`  DATE                                                                                                             NOT NULL,

@@ -2,7 +2,7 @@ package api.humanresource.repository.impl;
 
 import api.humanresource.model.entity.LeaveEntity;
 import api.humanresource.repository.LeaveRepository;
-import api.humanresource.repository.mappers.LeaveMapper;
+import api.humanresource.repository.mapping.LeaveMapper;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Query;
@@ -12,15 +12,19 @@ import java.util.List;
 
 @Repository
 public class LeaveRepositoryImpl implements LeaveRepository {
+
     private final Sql2o sql2o;
+
+    public LeaveRepositoryImpl(Sql2o sql2o) {
+        this.sql2o = sql2o;
+    }
+
+
     private static final String INSERT_QUERY = "INSERT INTO LEAVE_TABLE (START_DATE,FINISH_DATE,TYPE,EXPLANATION,EMPLOYEE_ID) " +
             "VALUES (:startDate,:finishDate,:type,:explanation,:employeeId)";
     private static final String GET_LEAVES_QUERY = "SELECT START_DATE, FINISH_DATE, TYPE" +
             " FROM LEAVE_TABLE WHERE EMPLOYEE_ID=:employeeId ";
 
-    public LeaveRepositoryImpl(Sql2o sql2o) {
-        this.sql2o = sql2o;
-    }
 
     public void save(LeaveEntity leaveEntity) {
         try (Connection con = sql2o.open(); Query query = con.createQuery(INSERT_QUERY)) {
@@ -34,11 +38,12 @@ public class LeaveRepositoryImpl implements LeaveRepository {
         }
     }
 
+
     @Override
-    public List<LeaveEntity> getLeaves(String id) {
+    public List<LeaveEntity> findLeavesById(String employeeId) {
         try (Connection con = sql2o.open(); Query query = con.createQuery(GET_LEAVES_QUERY)) {
             return query
-                    .addParameter(LeaveMapper.EMPLOYEE_ID.getField(), id)
+                    .addParameter(LeaveMapper.EMPLOYEE_ID.getField(), employeeId)
                     .setColumnMappings(LeaveMapper.getMapping())
                     .executeAndFetch(LeaveEntity.class);
         }

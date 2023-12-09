@@ -6,14 +6,14 @@ import java.time.LocalDate;
 
 
 public class LeaveEntity {
+
     private Integer id;
     private LocalDate startDate;
     private LocalDate finishDate;
     private LeaveType type;
-
     private String explanation;
-
     private String employeeId;
+
 
     public LeaveEntity(Integer id, LocalDate startDate, LocalDate finishDate, LeaveType type, String explanation, String employeeId) {
         this.id = id;

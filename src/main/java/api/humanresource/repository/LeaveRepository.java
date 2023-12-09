@@ -8,5 +8,5 @@ public interface LeaveRepository {
 
     void save(LeaveEntity leaveEntity);
 
-    List<LeaveEntity> getLeaves(String id);
+    List<LeaveEntity> findLeavesById(String employeeId);
 }

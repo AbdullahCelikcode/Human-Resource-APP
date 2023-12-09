@@ -6,21 +6,15 @@ import api.humanresource.model.enums.Role;
 
 public class EmployeeEntity {
 
-
     private String id;
-
     private String firstname;
-
     private String lastname;
-
     private String email;
-
     private Gender gender;
     private Role role;
-
     private String username;
-
     private String password;
+
 
     public EmployeeEntity(String id, String firstname, String lastname, String email, Gender gender, Role role, String username, String password) {
         this.id = id;
@@ -34,7 +28,6 @@ public class EmployeeEntity {
     }
 
     public EmployeeEntity() {
-
     }
 
     public String getId() {

@@ -6,7 +6,8 @@ import api.humanresource.model.response.LeaveResponse;
 import java.util.List;
 
 public interface LeaveService {
-    void add(LeaveCreateRequest leaveCreateRequest);
 
-    List<LeaveResponse> getLeaves(String id);
+    void create(LeaveCreateRequest leaveCreateRequest);
+
+    List<LeaveResponse> findLeavesById(String id);
 }

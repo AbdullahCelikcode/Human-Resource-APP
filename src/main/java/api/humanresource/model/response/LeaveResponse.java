@@ -5,6 +5,7 @@ import api.humanresource.model.enums.LeaveType;
 import java.time.LocalDate;
 
 public class LeaveResponse {
+
     private LocalDate startDate;
     private LocalDate finishDate;
     private LeaveType type;

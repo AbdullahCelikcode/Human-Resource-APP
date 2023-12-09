@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface EmployeeRepository {
+
     void save(EmployeeEntity employeeEntity);
 
     void update(EmployeeEntity employeeEntity);
@@ -13,7 +14,6 @@ public interface EmployeeRepository {
     List<EmployeeEntity> findAll();
 
     Optional<EmployeeEntity> findById(String employeeId);
-
 
     Optional<EmployeeEntity> findByUsername(String username);
 

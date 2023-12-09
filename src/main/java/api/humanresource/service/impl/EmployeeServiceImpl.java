@@ -26,6 +26,7 @@ class EmployeeServiceImpl implements EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
+
     @Override
     public void createEmployee(EmployeeCreateRequest employeeCreateRequest) {
         this.isEmailAlreadyExist(employeeCreateRequest.getEmail());
@@ -48,9 +49,11 @@ class EmployeeServiceImpl implements EmployeeService {
         return LocalDateTime.now().format(formatter);
     }
 
+
     @Override
     public void updateEmployee(String id, EmployeeUpdateRequest employeeUpdateRequest) {
-        EmployeeEntity employeeEntity = employeeRepository.findById(id).orElseThrow(() -> new GlobalException("Employee not found"));
+        EmployeeEntity employeeEntity = employeeRepository.findById(id)
+                .orElseThrow(() -> new GlobalException("Employee not found"));
 
         if (!employeeEntity.getEmail().equals(employeeUpdateRequest.getEmail())) {
             this.isEmailAlreadyExist(employeeUpdateRequest.getEmail());
@@ -71,16 +74,18 @@ class EmployeeServiceImpl implements EmployeeService {
         }
     }
 
+
     @Override
-    public void updatePassword(EmployeePasswordUpdateRequest employeePasswordUpdateRequest) {
-        EmployeeEntity employeeEntity = employeeRepository.findByUsername(employeePasswordUpdateRequest.getUsername())
-                .orElseThrow(() -> new GlobalException("Username  is Wrong "));
+    public void updatePassword(String id, EmployeePasswordUpdateRequest employeePasswordUpdateRequest) {
+        EmployeeEntity employeeEntity = employeeRepository.findById(id)
+                .orElseThrow(() -> new GlobalException("Employee  is not found "));
         if (!employeeEntity.getPassword().equals(employeePasswordUpdateRequest.getOldPassword())) {
             throw new GlobalException("Password is Wrong ");
         }
         employeeEntity.setPassword(employeePasswordUpdateRequest.getNewPassword());
         employeeRepository.update(employeeEntity);
     }
+
 
     @Override
     public List<EmployeesResponse> getAllEmployees() {

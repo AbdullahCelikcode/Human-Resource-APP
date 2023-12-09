@@ -1,27 +1,26 @@
-package api.humanresource.repository.mappers;
+package api.humanresource.repository.mapping;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public enum EmployeeMapper {
+public enum LeaveMapper {
     ID("ID", "id"),
-    FIRST_NAME("FIRST_NAME", "firstname"),
-    LAST_NAME("LAST_NAME", "lastname"),
-    EMAIL("EMAIL", "email"),
-    GENDER("GENDER", "gender"),
-    ROLE("ROLE", "role"),
-    USERNAME("USERNAME", "username"),
-    PASSWORD("PASSWORD", "password");
+    START_DATE("START_DATE", "startDate"),
+    FINISH_DATE("FINISH_DATE", "finishDate"),
+    TYPE("TYPE", "type"),
+    EXPLANATION("EXPLANATION", "explanation"),
+    EMPLOYEE_ID("EMPLOYEE_ID", "employeeId");
     private final String column;
     private final String field;
     private static final Map<String, String> mapping = new HashMap<>();
 
 
-    EmployeeMapper(String column, String field) {
+    LeaveMapper(String column, String field) {
         this.column = column;
         this.field = field;
 
     }
+
 
     public String getColumn() {
         return column;
@@ -31,9 +30,11 @@ public enum EmployeeMapper {
         return field;
     }
 
+
+
     static {
-        for (EmployeeMapper employee : EmployeeMapper.values()) {
-            mapping.put(employee.getColumn(), employee.getField());
+        for (LeaveMapper leaveMapper : LeaveMapper.values()) {
+            mapping.put(leaveMapper.getColumn(), leaveMapper.getField());
         }
     }
 
@@ -42,3 +43,4 @@ public enum EmployeeMapper {
     }
 
 }
+

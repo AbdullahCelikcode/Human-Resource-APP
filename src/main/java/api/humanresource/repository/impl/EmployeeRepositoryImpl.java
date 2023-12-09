@@ -2,7 +2,7 @@ package api.humanresource.repository.impl;
 
 import api.humanresource.model.entity.EmployeeEntity;
 import api.humanresource.repository.EmployeeRepository;
-import api.humanresource.repository.mappers.EmployeeMapper;
+import api.humanresource.repository.mapping.EmployeeMapper;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Query;
@@ -14,6 +14,15 @@ import java.util.Optional;
 
 @Repository
 class EmployeeRepositoryImpl implements EmployeeRepository {
+
+    private final Sql2o sql2o;
+
+    public EmployeeRepositoryImpl(Sql2o sql2o) {
+        this.sql2o = sql2o;
+
+    }
+
+
     private static final String INSERT_QUERY = "INSERT INTO EMPLOYEE (ID,FIRST_NAME,LAST_NAME,EMAIL,GENDER,ROLE,USERNAME,PASSWORD ) " +
             "VALUES (:id,:firstname,:lastname,:email,:gender,:role,:username,:password)";
     private static final String UPDATE_QUERY =
@@ -27,14 +36,6 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
 
     private static final String FIND_ALL_QUERY = "SELECT ID, FIRST_NAME, LAST_NAME, EMAIL, GENDER, ROLE ,USERNAME, PASSWORD FROM EMPLOYEE ";
 
-
-    private final Sql2o sql2o;
-
-
-    public EmployeeRepositoryImpl(Sql2o sql2o) {
-        this.sql2o = sql2o;
-
-    }
 
     @Override
     public void save(EmployeeEntity employeeEntity) {
@@ -52,6 +53,7 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
         }
     }
 
+
     @Override
     public void update(EmployeeEntity employeeEntity) {
         try (Connection con = sql2o.open(); Query query = con.createQuery(UPDATE_QUERY)) {
@@ -67,6 +69,7 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
         }
     }
 
+
     @Override
     public Optional<EmployeeEntity> findById(String employeeId) {
         try (Connection con = sql2o.open(); Query query = con.createQuery(FIND_BY_ID_QUERY)) {
@@ -76,6 +79,7 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
                     .executeAndFetchFirst(EmployeeEntity.class));
         }
     }
+
 
     @Override
     public Optional<EmployeeEntity> findByUsername(String username) {
@@ -87,6 +91,7 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
         }
     }
 
+
     @Override
     public Optional<EmployeeEntity> findByEmail(String email) {
         try (Connection con = sql2o.open(); Query query = con.createQuery(FIND_BY_EMAIL_QUERY)) {
@@ -96,6 +101,7 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
                     .executeAndFetchFirst(EmployeeEntity.class));
         }
     }
+
 
     @Override
     public List<EmployeeEntity> findAll() {

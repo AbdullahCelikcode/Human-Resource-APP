@@ -6,18 +6,12 @@ import api.humanresource.model.enums.Role;
 public class EmployeesResponse {
 
     private String id;
-
     private String firstname;
-
     private String lastname;
-
     private String email;
     private Gender gender;
-
     private Role role;
-
     private String username;
-
 
     public EmployeesResponse(String id, String firstname, String lastname, String email,
                              Gender gender, Role role, String username) {

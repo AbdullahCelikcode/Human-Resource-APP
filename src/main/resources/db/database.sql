@@ -4,7 +4,7 @@ CREATE USER 'hrapp'@'localhost' IDENTIFIED BY 'hrpassword';
 
 GRANT ALL PRIVILEGES ON HUMAN_RESOURCE.* TO 'hrapp'@'localhost';
 FLUSH PRIVILEGES;
-
+# defult değer ekle tablolara
 USE HUMAN_RESOURCE;
 
 CREATE TABLE IF NOT EXISTS `EMPLOYEE`

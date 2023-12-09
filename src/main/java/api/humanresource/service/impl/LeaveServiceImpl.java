@@ -13,6 +13,7 @@ import java.util.List;
 
 @Service
 class LeaveServiceImpl implements LeaveService {
+
     private final LeaveRepository leaveRepository;
     private final EmployeeRepository employeeRepository;
 
@@ -21,8 +22,9 @@ class LeaveServiceImpl implements LeaveService {
         this.employeeRepository = employeeRepository;
     }
 
+
     @Override
-    public void add(LeaveCreateRequest leaveCreateRequest) {
+    public void create(LeaveCreateRequest leaveCreateRequest) {
         if (employeeRepository.findById(leaveCreateRequest.getEmployeeId()).isEmpty()) {
             throw new GlobalException("Employee is not exist");
         }
@@ -36,14 +38,18 @@ class LeaveServiceImpl implements LeaveService {
         leaveRepository.save(leaveEntity);
     }
 
+
     @Override
-    public List<LeaveResponse> getLeaves(String id) {
-        if (employeeRepository.findById(id).isEmpty()) {
+    public List<LeaveResponse> findLeavesById(String employeeId) {
+        if (employeeRepository.findById(employeeId).isEmpty()) {
             throw new GlobalException("Employee is not exist");
         }
-        List<LeaveEntity> leaveEntities = leaveRepository.getLeaves(id);
+        List<LeaveEntity> leaveEntities = leaveRepository.findLeavesById(employeeId);
         return leaveEntities.stream()
-                .map(leaveEntity -> new LeaveResponse(leaveEntity.getStartDate(), leaveEntity.getFinishDate(), leaveEntity.getType()))
+                .map(leaveEntity -> new LeaveResponse(
+                        leaveEntity.getStartDate(),
+                        leaveEntity.getFinishDate(),
+                        leaveEntity.getType()))
                 .toList();
     }
 }

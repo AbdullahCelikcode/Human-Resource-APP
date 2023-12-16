@@ -5,25 +5,31 @@ import api.humanresource.model.enums.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
+
+import java.time.LocalDate;
 
 
 public class EmployeeCreateRequest {
 
     @NotBlank
-    @Size(min = 2,max =45)
+    @Size(min = 2, max = 45)
     private String firstname;
     @NotBlank
-    @Size(min = 2,max =45)
+    @Size(min = 2, max = 45)
     private String lastname;
     @Email
     @NotBlank
-    @Size(min = 2,max =45)
+    @Size(min = 2, max = 45)
     private String email;
     @NotNull
     private Gender gender;
     @NotNull
     private Role role;
+    @Past(message = "Birthday cannot be future")
+    @NotNull
+    private LocalDate birthday;
 
 
     public String getFirstname() {
@@ -45,4 +51,6 @@ public class EmployeeCreateRequest {
     public Role getRole() {
         return role;
     }
+
+    public LocalDate getBirthday() {return birthday;}
 }

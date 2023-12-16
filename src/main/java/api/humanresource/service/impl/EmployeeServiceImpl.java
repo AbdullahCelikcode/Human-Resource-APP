@@ -6,6 +6,7 @@ import api.humanresource.model.request.EmployeePasswordUpdateRequest;
 import api.humanresource.model.request.EmployeeUpdateRequest;
 import api.humanresource.model.response.EmployeesResponse;
 import api.humanresource.repository.EmployeeRepository;
+import api.humanresource.service.EmailService;
 import api.humanresource.service.EmployeeService;
 import api.humanresource.util.exception.GlobalException;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -21,9 +22,11 @@ import java.util.UUID;
 class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final EmailService emailService;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, EmailService emailService) {
         this.employeeRepository = employeeRepository;
+        this.emailService = emailService;
     }
 
 
@@ -38,9 +41,12 @@ class EmployeeServiceImpl implements EmployeeService {
                 employeeCreateRequest.getEmail(),
                 employeeCreateRequest.getGender(),
                 employeeCreateRequest.getRole(),
+                employeeCreateRequest.getBirthday(),
                 this.generateUsername(),
                 RandomStringUtils.random(9, true, true)
         );
+
+        emailService.sendUsernameAndPasswordMail(employeeEntity);
         employeeRepository.save(employeeEntity);
     }
 

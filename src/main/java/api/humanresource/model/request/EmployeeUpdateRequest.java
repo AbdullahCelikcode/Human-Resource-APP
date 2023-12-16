@@ -5,7 +5,10 @@ import api.humanresource.model.enums.Role;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
+
+import java.time.LocalDate;
 
 public class EmployeeUpdateRequest {
 
@@ -23,6 +26,10 @@ public class EmployeeUpdateRequest {
     private Gender gender;
     @NotNull
     private Role role;
+    @Past(message = "Birthday cannot be future")
+    @NotNull
+    private LocalDate birthday;
+
 
 
     public String getFirstname() {
@@ -44,6 +51,5 @@ public class EmployeeUpdateRequest {
     public Role getRole() {
         return role;
     }
-
-
+    public LocalDate getBirthday() {return birthday;}
 }

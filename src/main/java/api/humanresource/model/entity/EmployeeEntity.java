@@ -3,6 +3,8 @@ package api.humanresource.model.entity;
 import api.humanresource.model.enums.Gender;
 import api.humanresource.model.enums.Role;
 
+import java.time.LocalDate;
+
 
 public class EmployeeEntity {
 
@@ -12,23 +14,23 @@ public class EmployeeEntity {
     private String email;
     private Gender gender;
     private Role role;
+    private LocalDate birthday;
     private String username;
     private String password;
 
 
-    public EmployeeEntity(String id, String firstname, String lastname, String email, Gender gender, Role role, String username, String password) {
+    public EmployeeEntity(String id, String firstname, String lastname, String email, Gender gender, Role role, LocalDate birthday, String username, String password) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.gender = gender;
         this.role = role;
+        this.birthday = birthday;
         this.username = username;
         this.password = password;
     }
 
-    public EmployeeEntity() {
-    }
 
     public String getId() {
         return id;
@@ -92,5 +94,13 @@ public class EmployeeEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
     }
 }

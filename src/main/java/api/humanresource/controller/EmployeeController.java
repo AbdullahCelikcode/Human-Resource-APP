@@ -4,7 +4,9 @@ import api.humanresource.model.request.EmployeeCreateRequest;
 import api.humanresource.model.request.EmployeePasswordUpdateRequest;
 import api.humanresource.model.request.EmployeeUpdateRequest;
 import api.humanresource.model.response.EmployeesResponse;
+import api.humanresource.service.EmailService;
 import api.humanresource.service.EmployeeService;
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import org.hibernate.validator.constraints.UUID;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +27,11 @@ import java.util.List;
 class EmployeeController {
 
     private final EmployeeService employeeService;
+    private final EmailService emailService;
 
-    public EmployeeController(EmployeeService employeeService) {
+    public EmployeeController(EmployeeService employeeService, EmailService emailService) {
         this.employeeService = employeeService;
+        this.emailService = emailService;
     }
 
 
@@ -53,5 +57,9 @@ class EmployeeController {
     public ResponseEntity<List<EmployeesResponse>> getAllEmployees() {
 
         return ResponseEntity.ok(employeeService.getAllEmployees());
+    }
+    @GetMapping("/birthday")
+    public void getBirthday() throws MessagingException {
+        emailService.sendBirthdayEmail();
     }
 }

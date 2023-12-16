@@ -10,6 +10,7 @@ public enum EmployeeMapper {
     EMAIL("EMAIL", "email"),
     GENDER("GENDER", "gender"),
     ROLE("ROLE", "role"),
+    BIRTHDAY("BIRTHDAY", "birthday"),
     USERNAME("USERNAME", "username"),
     PASSWORD("PASSWORD", "password");
     private final String column;

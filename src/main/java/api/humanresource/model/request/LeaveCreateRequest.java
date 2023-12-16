@@ -1,6 +1,7 @@
 package api.humanresource.model.request;
 
 import api.humanresource.model.enums.LeaveType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.FutureOrPresent;
@@ -27,7 +28,9 @@ public class LeaveCreateRequest {
     @UUID
     private String employeeId;
 
+    @JsonIgnore
     @AssertTrue(message = "finish date  cannot before start date")
+    @SuppressWarnings("unused")
     private boolean isValid() {
         if (startDate == null || finishDate == null) {
             return true;

@@ -3,3 +3,18 @@ db:
   username: hrapp
   password: hrpassword
 
+spring:
+  mail:
+    default-encoding: UTF-8
+    host: smtp.gmail.com
+    username: humanresource11134@gmail.com
+    password: umwcbduaxzgcwqgl
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+

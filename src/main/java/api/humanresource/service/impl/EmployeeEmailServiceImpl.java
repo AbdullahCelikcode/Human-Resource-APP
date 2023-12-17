@@ -4,7 +4,6 @@ import api.humanresource.model.entity.EmployeeEntity;
 import api.humanresource.repository.EmployeeRepository;
 import api.humanresource.service.EmailService;
 import api.humanresource.service.EmployeeEmailService;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -18,7 +17,7 @@ public class EmployeeEmailServiceImpl implements EmployeeEmailService {
 
     private final EmployeeRepository employeeRepository;
 
-    public EmployeeEmailServiceImpl(JavaMailSender mailSender, EmailService emailService, EmployeeRepository employeeRepository) {
+    public EmployeeEmailServiceImpl(EmailService emailService, EmployeeRepository employeeRepository) {
         this.emailService = emailService;
         this.employeeRepository = employeeRepository;
     }

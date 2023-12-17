@@ -8,6 +8,7 @@ import org.sql2o.Connection;
 import org.sql2o.Query;
 import org.sql2o.Sql2o;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -25,6 +26,12 @@ public class LeaveRepositoryImpl implements LeaveRepository {
     private static final String GET_LEAVES_QUERY = "SELECT START_DATE, FINISH_DATE, TYPE" +
             " FROM LEAVE_TABLE WHERE EMPLOYEE_ID=:employeeId ";
 
+    private static final String IS_EXIST_BY_DATE_QUERY = "SELECT " +
+            "    CASE" +
+            "        WHEN EXISTS (SELECT START_DATE,FINISH_DATE,EMPLOYEE_ID FROM leave_table WHERE EMPLOYEE_ID=:employeeId AND (START_DATE=:startDate" +
+            "        OR FINISH_DATE=:finishDate)) THEN 'TRUE'" +
+            "        ELSE 'FALSE'" +
+            "    END ";
 
     public void save(LeaveEntity leaveEntity) {
         try (Connection con = sql2o.open(); Query query = con.createQuery(INSERT_QUERY)) {
@@ -46,6 +53,17 @@ public class LeaveRepositoryImpl implements LeaveRepository {
                     .addParameter(LeaveMapper.EMPLOYEE_ID.getField(), employeeId)
                     .setColumnMappings(LeaveMapper.getMapping())
                     .executeAndFetch(LeaveEntity.class);
+        }
+    }
+
+    @Override
+    public boolean isExistByDate(LocalDate startDate, LocalDate finishDate, String employeeId) {
+        try (Connection con = sql2o.open(); Query query = con.createQuery(IS_EXIST_BY_DATE_QUERY)) {
+            return query
+                    .addParameter(LeaveMapper.START_DATE.getField(), startDate)
+                    .addParameter(LeaveMapper.FINISH_DATE.getField(), finishDate)
+                    .addParameter(LeaveMapper.EMPLOYEE_ID.getField(), employeeId)
+                    .executeAndFetchFirst(Boolean.class);
         }
     }
 }

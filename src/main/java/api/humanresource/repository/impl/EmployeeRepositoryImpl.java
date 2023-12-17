@@ -8,7 +8,6 @@ import org.sql2o.Connection;
 import org.sql2o.Query;
 import org.sql2o.Sql2o;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,7 +36,6 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
 
     private static final String FIND_ALL_QUERY = "SELECT ID, FIRST_NAME, LAST_NAME, EMAIL, GENDER, ROLE, BIRTHDAY, USERNAME, PASSWORD FROM EMPLOYEE ";
 
-    private static final String FIND_BY_BIRTHDAY = "SELECT EMAIL,FIRST_NAME,LAST_NAME FROM EMPLOYEE WHERE BIRTHDAY=:birthday";
 
     @Override
     public void save(EmployeeEntity employeeEntity) {
@@ -49,7 +47,7 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
                     .addParameter(EmployeeMapper.EMAIL.getField(), employeeEntity.getEmail())
                     .addParameter(EmployeeMapper.GENDER.getField(), employeeEntity.getGender())
                     .addParameter(EmployeeMapper.ROLE.getField(), employeeEntity.getRole())
-                    .addParameter(EmployeeMapper.BIRTHDAY.getField(),employeeEntity.getBirthday())
+                    .addParameter(EmployeeMapper.BIRTHDAY.getField(), employeeEntity.getBirthday())
                     .addParameter(EmployeeMapper.USERNAME.getField(), employeeEntity.getUsername())
                     .addParameter(EmployeeMapper.PASSWORD.getField(), employeeEntity.getPassword())
                     .executeUpdate();
@@ -104,16 +102,6 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
                     .executeAndFetchFirst(EmployeeEntity.class));
         }
     }
-
-//    @Override
-//    public List<EmployeeEntity> findEmployeeByBirthday(LocalDate date) {
-//        try (Connection con = sql2o.open(); Query query = con.createQuery(FIND_BY_BIRTHDAY)) {
-//            return query
-//                    .addParameter(EmployeeMapper.BIRTHDAY.getField(), date)
-//                    .setColumnMappings(EmployeeMapper.getMapping())
-//                    .executeAndFetch(EmployeeEntity.class);
-//        }
-//    }
 
 
     @Override

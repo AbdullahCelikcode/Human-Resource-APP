@@ -4,7 +4,7 @@ import api.humanresource.model.request.EmployeeCreateRequest;
 import api.humanresource.model.request.EmployeePasswordUpdateRequest;
 import api.humanresource.model.request.EmployeeUpdateRequest;
 import api.humanresource.model.response.EmployeesResponse;
-import api.humanresource.service.EmailService;
+import api.humanresource.service.EmployeeEmailService;
 import api.humanresource.service.EmployeeService;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
@@ -27,11 +27,11 @@ import java.util.List;
 class EmployeeController {
 
     private final EmployeeService employeeService;
-    private final EmailService emailService;
+    private final EmployeeEmailService employeeEmailService;
 
-    public EmployeeController(EmployeeService employeeService, EmailService emailService) {
+    public EmployeeController(EmployeeService employeeService, EmployeeEmailService employeeEmailService) {
         this.employeeService = employeeService;
-        this.emailService = emailService;
+        this.employeeEmailService = employeeEmailService;
     }
 
 
@@ -60,6 +60,6 @@ class EmployeeController {
     }
     @GetMapping("/birthday")
     public void getBirthday() throws MessagingException {
-        emailService.sendBirthdayEmail();
+        employeeEmailService.sendBirthdayEmail();
     }
 }

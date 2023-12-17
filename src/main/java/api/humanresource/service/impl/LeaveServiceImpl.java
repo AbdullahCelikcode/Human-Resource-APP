@@ -28,6 +28,9 @@ class LeaveServiceImpl implements LeaveService {
         if (employeeRepository.findById(leaveCreateRequest.getEmployeeId()).isEmpty()) {
             throw new GlobalException("Employee is not exist");
         }
+        if (isDublicated(leaveCreateRequest)) {
+            throw new GlobalException("Leave already exist");
+        }
         LeaveEntity leaveEntity = new LeaveEntity(
                 leaveCreateRequest.getStartDate(),
                 leaveCreateRequest.getFinishDate(),
@@ -36,6 +39,13 @@ class LeaveServiceImpl implements LeaveService {
                 leaveCreateRequest.getEmployeeId()
         );
         leaveRepository.save(leaveEntity);
+    }
+
+    private boolean isDublicated(LeaveCreateRequest leaveCreateRequest) {
+        return leaveRepository.isExistByDate(
+                leaveCreateRequest.getStartDate(),
+                leaveCreateRequest.getFinishDate(),
+                leaveCreateRequest.getEmployeeId());
     }
 
 

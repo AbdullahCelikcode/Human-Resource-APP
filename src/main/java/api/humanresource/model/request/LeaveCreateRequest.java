@@ -32,10 +32,10 @@ public class LeaveCreateRequest {
     @AssertTrue(message = "finish date  cannot before start date")
     @SuppressWarnings("unused")
     private boolean isValid() {
-        if (startDate == null || finishDate == null) {
+        if (startDate == null || finishDate == null ) {
             return true;
         }
-        return this.startDate.isBefore(this.finishDate);
+        return this.startDate.isBefore(this.finishDate) || this.startDate.equals(this.finishDate);
     }
 
 

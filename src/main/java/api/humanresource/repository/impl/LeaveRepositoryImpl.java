@@ -23,7 +23,7 @@ public class LeaveRepositoryImpl implements LeaveRepository {
 
     private static final String INSERT_QUERY = "INSERT INTO LEAVE_TABLE (START_DATE,FINISH_DATE,TYPE,EXPLANATION,EMPLOYEE_ID) " +
             "VALUES (:startDate,:finishDate,:type,:explanation,:employeeId)";
-    private static final String GET_LEAVES_QUERY = "SELECT START_DATE, FINISH_DATE, TYPE" +
+    private static final String GET_LEAVES_QUERY = "SELECT START_DATE, FINISH_DATE,EXPLANATION, TYPE" +
             " FROM LEAVE_TABLE WHERE EMPLOYEE_ID=:employeeId ";
 
     private static final String IS_EXIST_BY_DATE_QUERY = "SELECT " +

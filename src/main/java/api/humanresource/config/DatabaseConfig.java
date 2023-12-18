@@ -34,6 +34,7 @@ class DatabaseConfig {
         return dataSource;
     }
 
+    @SuppressWarnings("rawtypes")
     @Bean
     public Sql2o sql2o() {
         final Map<Class, Converter> converters = new HashMap<>();

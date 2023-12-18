@@ -59,6 +59,7 @@ class LeaveServiceImpl implements LeaveService {
                 .map(leaveEntity -> new LeaveResponse(
                         leaveEntity.getStartDate(),
                         leaveEntity.getFinishDate(),
+                        leaveEntity.getExplanation(),
                         leaveEntity.getType()))
                 .toList();
     }

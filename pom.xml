@@ -16,7 +16,7 @@
 
     <properties>
         <java.version>17</java.version>
-        <sql20.version>1.6.0</sql20.version>
+        <sql2o.version>1.6.0</sql2o.version>
         <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
         <commons-dbcp2.version>2.9.0</commons-dbcp2.version>
     </properties>
@@ -30,7 +30,7 @@
         <dependency>
             <groupId>org.sql2o</groupId>
             <artifactId>sql2o</artifactId>
-            <version>${sql20.version}</version>
+            <version>${sql2o.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>

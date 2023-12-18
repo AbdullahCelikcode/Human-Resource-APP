@@ -6,7 +6,6 @@ import api.humanresource.model.request.EmployeeUpdateRequest;
 import api.humanresource.model.response.EmployeesResponse;
 import api.humanresource.service.EmployeeEmailService;
 import api.humanresource.service.EmployeeService;
-import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import org.hibernate.validator.constraints.UUID;
 import org.springframework.http.ResponseEntity;
@@ -47,9 +46,9 @@ class EmployeeController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/employee/password")
+    @PutMapping("/employee/password/{id}")
     public ResponseEntity<Void> updatePassword(@PathVariable @UUID String id, @RequestBody @Valid EmployeePasswordUpdateRequest employeeUpdateRequest) {
-        employeeService.updatePassword(id,employeeUpdateRequest);
+        employeeService.updatePassword(id, employeeUpdateRequest);
         return ResponseEntity.ok().build();
     }
 
@@ -58,8 +57,9 @@ class EmployeeController {
 
         return ResponseEntity.ok(employeeService.getAllEmployees());
     }
+
     @GetMapping("/birthday")
-    public void getBirthday() throws MessagingException {
+    public void getBirthday() {
         employeeEmailService.sendBirthdayEmail();
     }
 }

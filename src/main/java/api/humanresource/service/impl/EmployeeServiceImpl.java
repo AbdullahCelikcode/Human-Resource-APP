@@ -114,6 +114,7 @@ class EmployeeServiceImpl implements EmployeeService {
         return employeesResponses;
     }
 
+
     @Override
     public List<EmployeesResponse> getEmployeesOnLeave() {
         List<EmployeeEntity> employeeEntities = employeeRepository.findEmployeesOnLeaveByDate(LocalDate.now());

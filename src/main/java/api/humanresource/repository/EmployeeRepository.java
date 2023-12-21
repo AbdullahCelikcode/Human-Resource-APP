@@ -16,7 +16,6 @@ public interface EmployeeRepository {
 
     List<EmployeeEntity> findEmployeesOnLeaveByDate(LocalDate date);
 
-
     Optional<EmployeeEntity> findById(String employeeId);
 
     Optional<EmployeeEntity> findByUsername(String username);

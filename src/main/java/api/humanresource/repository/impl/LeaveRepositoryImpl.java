@@ -21,9 +21,11 @@ public class LeaveRepositoryImpl implements LeaveRepository {
     }
 
 
-    private static final String INSERT_QUERY = "INSERT INTO LEAVE_TABLE (START_DATE,FINISH_DATE,TYPE,EXPLANATION,STATUS,EMPLOYEE_ID) " +
+    private static final String INSERT_QUERY =
+            "INSERT INTO LEAVE_TABLE (START_DATE,FINISH_DATE,TYPE,EXPLANATION,STATUS,EMPLOYEE_ID) " +
             "VALUES (:startDate,:finishDate,:type,:explanation,:status,:employeeId)";
-    private static final String GET_LEAVES_QUERY = "SELECT ID, START_DATE, FINISH_DATE,EXPLANATION,STATUS, TYPE" +
+    private static final String GET_LEAVES_QUERY =
+            "SELECT ID, START_DATE, FINISH_DATE,EXPLANATION,STATUS, TYPE" +
             " FROM LEAVE_TABLE WHERE EMPLOYEE_ID=:employeeId ";
 
     private static final String IS_EXIST_BY_DATE_QUERY = "SELECT " +
@@ -57,6 +59,7 @@ public class LeaveRepositoryImpl implements LeaveRepository {
         }
     }
 
+
     @Override
     public boolean isExistByDate(LocalDate startDate, LocalDate finishDate, String employeeId) {
         try (Connection con = sql2o.open(); Query query = con.createQuery(IS_EXIST_BY_DATE_QUERY)) {
@@ -67,7 +70,5 @@ public class LeaveRepositoryImpl implements LeaveRepository {
                     .executeAndFetchFirst(Boolean.class);
         }
     }
-
-
 }
 

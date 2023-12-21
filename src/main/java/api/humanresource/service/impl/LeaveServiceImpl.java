@@ -67,6 +67,4 @@ class LeaveServiceImpl implements LeaveService {
                         leaveEntity.getType()))
                 .toList();
     }
-
-
 }

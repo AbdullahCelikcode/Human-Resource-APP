@@ -9,6 +9,7 @@ public enum LeaveMapper {
     FINISH_DATE("FINISH_DATE", "finishDate"),
     TYPE("TYPE", "type"),
     EXPLANATION("EXPLANATION", "explanation"),
+    STATUS("STATUS","status"),
     EMPLOYEE_ID("EMPLOYEE_ID", "employeeId");
     private final String column;
     private final String field;

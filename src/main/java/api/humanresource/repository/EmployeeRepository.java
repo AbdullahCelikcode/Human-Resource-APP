@@ -14,12 +14,14 @@ public interface EmployeeRepository {
 
     List<EmployeeEntity> findAll();
 
+    List<EmployeeEntity> findEmployeesOnLeaveByDate(LocalDate date);
+
+
     Optional<EmployeeEntity> findById(String employeeId);
 
     Optional<EmployeeEntity> findByUsername(String username);
 
     Optional<EmployeeEntity> findByEmail(String email);
-
 
 
 }

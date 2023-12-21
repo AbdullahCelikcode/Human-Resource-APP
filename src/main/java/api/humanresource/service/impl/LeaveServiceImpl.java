@@ -1,6 +1,7 @@
 package api.humanresource.service.impl;
 
 import api.humanresource.model.entity.LeaveEntity;
+import api.humanresource.model.enums.Status;
 import api.humanresource.model.request.LeaveCreateRequest;
 import api.humanresource.model.response.LeaveResponse;
 import api.humanresource.repository.EmployeeRepository;
@@ -36,6 +37,7 @@ class LeaveServiceImpl implements LeaveService {
                 leaveCreateRequest.getFinishDate(),
                 leaveCreateRequest.getType(),
                 leaveCreateRequest.getExplanation(),
+                Status.PENDING,
                 leaveCreateRequest.getEmployeeId()
         );
         leaveRepository.save(leaveEntity);
@@ -57,10 +59,14 @@ class LeaveServiceImpl implements LeaveService {
         List<LeaveEntity> leaveEntities = leaveRepository.findLeavesById(employeeId);
         return leaveEntities.stream()
                 .map(leaveEntity -> new LeaveResponse(
+                        leaveEntity.getId(),
                         leaveEntity.getStartDate(),
                         leaveEntity.getFinishDate(),
                         leaveEntity.getExplanation(),
+                        leaveEntity.getStatus(),
                         leaveEntity.getType()))
                 .toList();
     }
+
+
 }

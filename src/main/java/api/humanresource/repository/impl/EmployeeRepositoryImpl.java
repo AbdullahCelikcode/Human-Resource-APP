@@ -8,6 +8,7 @@ import org.sql2o.Connection;
 import org.sql2o.Query;
 import org.sql2o.Sql2o;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,10 +33,14 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
 
     private static final String FIND_BY_USERNAME_QUERY = "SELECT ID, FIRST_NAME, LAST_NAME, EMAIL, GENDER, ROLE ,USERNAME, PASSWORD FROM EMPLOYEE WHERE USERNAME=:username ";
 
-    private static final String FIND_BY_EMAIL_QUERY = "SELECT ID, FIRST_NAME, LAST_NAME, EMAIL, GENDER, ROLE ,USERNAME, PASSWORD FROM EMPLOYEE WHERE EMAIL=:email ";
+    private static final String FIND_BY_EMAIL_QUERY = "SELECT EMAIL FROM EMPLOYEE WHERE EMAIL=:email ";
 
     private static final String FIND_ALL_QUERY = "SELECT ID, FIRST_NAME, LAST_NAME, EMAIL, GENDER, ROLE, BIRTHDAY, USERNAME, PASSWORD FROM EMPLOYEE ";
 
+    private static final String FIND_ALL_DAILY = "SELECT e.ID, e.FIRST_NAME, e.LAST_NAME, e.EMAIL, e.GENDER, e.ROLE ,e.USERNAME, e.BIRTHDAY " +
+            " FROM Employee e INNER JOIN leave_table lt " +
+            " ON e.ID = lt.EMPLOYEE_ID" +
+            " WHERE :DATE BETWEEN lt.START_DATE AND lt.FINISH_DATE ;";
 
     @Override
     public void save(EmployeeEntity employeeEntity) {
@@ -108,6 +113,16 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
     public List<EmployeeEntity> findAll() {
         try (Connection con = sql2o.open(); Query query = con.createQuery(FIND_ALL_QUERY)) {
             return query
+                    .setColumnMappings(EmployeeMapper.getMapping())
+                    .executeAndFetch(EmployeeEntity.class);
+        }
+    }
+
+    @Override
+    public List<EmployeeEntity> findEmployeesOnLeaveByDate(LocalDate date) {
+        try (Connection con = sql2o.open(); Query query = con.createQuery(FIND_ALL_DAILY)) {
+            return query
+                    .addParameter("DATE", date)
                     .setColumnMappings(EmployeeMapper.getMapping())
                     .executeAndFetch(EmployeeEntity.class);
         }

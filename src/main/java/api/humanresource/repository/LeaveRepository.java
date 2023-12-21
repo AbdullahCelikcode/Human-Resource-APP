@@ -11,5 +11,7 @@ public interface LeaveRepository {
 
     List<LeaveEntity> findLeavesById(String employeeId);
 
+
     boolean isExistByDate(LocalDate startDate, LocalDate finishDate, String employeeId);
+
 }

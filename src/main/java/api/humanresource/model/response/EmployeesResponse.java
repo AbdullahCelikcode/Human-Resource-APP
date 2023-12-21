@@ -3,6 +3,9 @@ package api.humanresource.model.response;
 import api.humanresource.model.enums.Gender;
 import api.humanresource.model.enums.Role;
 
+import java.time.LocalDate;
+
+@SuppressWarnings("unused")
 public class EmployeesResponse {
 
     private String id;
@@ -10,20 +13,23 @@ public class EmployeesResponse {
     private String lastname;
     private String email;
     private Gender gender;
+    private LocalDate birthday;
     private Role role;
     private String username;
 
     public EmployeesResponse(String id, String firstname, String lastname, String email,
-                             Gender gender, Role role, String username) {
+                             Gender gender, LocalDate birthday, Role role, String username) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.gender = gender;
+        this.birthday = birthday;
         this.role = role;
         this.username = username;
 
     }
+
 
     public String getId() {
         return id;
@@ -82,4 +88,11 @@ public class EmployeesResponse {
         this.username = username;
     }
 
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+    }
 }

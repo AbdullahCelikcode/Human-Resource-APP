@@ -1,23 +1,40 @@
 package api.humanresource.model.response;
 
 import api.humanresource.model.enums.LeaveType;
+import api.humanresource.model.enums.Status;
 
 import java.time.LocalDate;
+
 @SuppressWarnings("unused")
 public class LeaveResponse {
-
+    private Integer id;
     private LocalDate startDate;
     private LocalDate finishDate;
 
     private String explanation;
+
+    private Status status;
     private LeaveType type;
 
-    public LeaveResponse(LocalDate startDate, LocalDate finishDate, String explanation, LeaveType type) {
+
+    public LeaveResponse(Integer id, LocalDate startDate, LocalDate finishDate, String explanation, Status status, LeaveType type) {
+        this.id = id;
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.explanation = explanation;
+        this.status = status;
         this.type = type;
     }
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
 
     public LocalDate getStartDate() {
         return startDate;
@@ -49,5 +66,13 @@ public class LeaveResponse {
 
     public void setExplanation(String explanation) {
         this.explanation = explanation;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Status getStatus() {
+        return status;
     }
 }

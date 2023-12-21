@@ -12,6 +12,7 @@ import api.humanresource.util.exception.GlobalException;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -104,11 +105,28 @@ class EmployeeServiceImpl implements EmployeeService {
                     employee.getLastname(),
                     employee.getEmail(),
                     employee.getGender(),
+                    employee.getBirthday(),
                     employee.getRole(),
                     employee.getUsername()
             );
             employeesResponses.add(employeesResponse);
         }
         return employeesResponses;
+    }
+
+    @Override
+    public List<EmployeesResponse> getEmployeesOnLeave() {
+        List<EmployeeEntity> employeeEntities = employeeRepository.findEmployeesOnLeaveByDate(LocalDate.now());
+        return employeeEntities.stream()
+                .map(employeeEntity -> new EmployeesResponse(
+                        employeeEntity.getId(),
+                        employeeEntity.getFirstname(),
+                        employeeEntity.getLastname(),
+                        employeeEntity.getEmail(),
+                        employeeEntity.getGender(),
+                        employeeEntity.getBirthday(),
+                        employeeEntity.getRole(),
+                        employeeEntity.getUsername()))
+                .toList();
     }
 }

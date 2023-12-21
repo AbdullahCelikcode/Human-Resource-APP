@@ -10,4 +10,6 @@ public interface LeaveService {
     void create(LeaveCreateRequest leaveCreateRequest);
 
     List<LeaveResponse> findLeavesById(String id);
+
+
 }

@@ -21,17 +21,17 @@ public class LeaveRepositoryImpl implements LeaveRepository {
     }
 
 
-    private static final String INSERT_QUERY = "INSERT INTO LEAVE_TABLE (START_DATE,FINISH_DATE,TYPE,EXPLANATION,EMPLOYEE_ID) " +
-            "VALUES (:startDate,:finishDate,:type,:explanation,:employeeId)";
-    private static final String GET_LEAVES_QUERY = "SELECT START_DATE, FINISH_DATE,EXPLANATION, TYPE" +
+    private static final String INSERT_QUERY = "INSERT INTO LEAVE_TABLE (START_DATE,FINISH_DATE,TYPE,EXPLANATION,STATUS,EMPLOYEE_ID) " +
+            "VALUES (:startDate,:finishDate,:type,:explanation,:status,:employeeId)";
+    private static final String GET_LEAVES_QUERY = "SELECT ID, START_DATE, FINISH_DATE,EXPLANATION,STATUS, TYPE" +
             " FROM LEAVE_TABLE WHERE EMPLOYEE_ID=:employeeId ";
 
     private static final String IS_EXIST_BY_DATE_QUERY = "SELECT " +
-            "    CASE" +
-            "        WHEN EXISTS (SELECT START_DATE,FINISH_DATE,EMPLOYEE_ID FROM leave_table WHERE EMPLOYEE_ID=:employeeId AND (START_DATE=:startDate" +
-            "        OR FINISH_DATE=:finishDate)) THEN 'TRUE'" +
-            "        ELSE 'FALSE'" +
-            "    END ";
+            "    IF(EXISTS (SELECT START_DATE,FINISH_DATE,EMPLOYEE_ID FROM leave_table " +
+            "        WHERE EMPLOYEE_ID=:employeeId AND (START_DATE=:startDate" +
+            "        OR FINISH_DATE=:finishDate))" +
+            ", 'TRUE', 'FALSE') ";
+
 
     public void save(LeaveEntity leaveEntity) {
         try (Connection con = sql2o.open(); Query query = con.createQuery(INSERT_QUERY)) {
@@ -40,6 +40,7 @@ public class LeaveRepositoryImpl implements LeaveRepository {
                     .addParameter(LeaveMapper.FINISH_DATE.getField(), leaveEntity.getFinishDate())
                     .addParameter(LeaveMapper.TYPE.getField(), leaveEntity.getType())
                     .addParameter(LeaveMapper.EXPLANATION.getField(), leaveEntity.getExplanation())
+                    .addParameter(LeaveMapper.STATUS.getField(), leaveEntity.getStatus())
                     .addParameter(LeaveMapper.EMPLOYEE_ID.getField(), leaveEntity.getEmployeeId())
                     .executeUpdate();
         }
@@ -66,5 +67,7 @@ public class LeaveRepositoryImpl implements LeaveRepository {
                     .executeAndFetchFirst(Boolean.class);
         }
     }
+
+
 }
 

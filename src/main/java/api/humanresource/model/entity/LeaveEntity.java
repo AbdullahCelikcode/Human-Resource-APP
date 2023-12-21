@@ -1,10 +1,11 @@
 package api.humanresource.model.entity;
 
 import api.humanresource.model.enums.LeaveType;
+import api.humanresource.model.enums.Status;
 
 import java.time.LocalDate;
 
-
+@SuppressWarnings("unused")
 public class LeaveEntity {
 
     private Integer id;
@@ -12,24 +13,18 @@ public class LeaveEntity {
     private LocalDate finishDate;
     private LeaveType type;
     private String explanation;
+
+    private Status status;
     private String employeeId;
 
 
-    public LeaveEntity(Integer id, LocalDate startDate, LocalDate finishDate, LeaveType type, String explanation, String employeeId) {
-        this.id = id;
-        this.startDate = startDate;
-        this.finishDate = finishDate;
-        this.type = type;
-        this.explanation = explanation;
-        this.employeeId = employeeId;
-    }
-
-    public LeaveEntity(LocalDate startDate, LocalDate finishDate, LeaveType type, String explanation, String employeeId) {
+    public LeaveEntity(LocalDate startDate, LocalDate finishDate, LeaveType type, String explanation, Status status, String employeeId) {
 
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.type = type;
         this.explanation = explanation;
+        this.status = status;
         this.employeeId = employeeId;
     }
 
@@ -79,5 +74,13 @@ public class LeaveEntity {
 
     public void setEmployeeId(String employeeId) {
         this.employeeId = employeeId;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

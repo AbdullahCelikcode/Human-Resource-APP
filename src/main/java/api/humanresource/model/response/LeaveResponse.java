@@ -15,15 +15,17 @@ public class LeaveResponse {
 
     private Status status;
     private LeaveType type;
+    private String employeeId;
 
 
-    public LeaveResponse(Integer id, LocalDate startDate, LocalDate finishDate, String explanation, Status status, LeaveType type) {
+    public LeaveResponse(Integer id, LocalDate startDate, LocalDate finishDate, String explanation, Status status, LeaveType type, String employeeId) {
         this.id = id;
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.explanation = explanation;
         this.status = status;
         this.type = type;
+        this.employeeId = employeeId;
     }
 
 
@@ -74,5 +76,13 @@ public class LeaveResponse {
 
     public Status getStatus() {
         return status;
+    }
+
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
     }
 }

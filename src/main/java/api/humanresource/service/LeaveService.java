@@ -1,6 +1,7 @@
 package api.humanresource.service;
 
 import api.humanresource.model.request.LeaveCreateRequest;
+import api.humanresource.model.request.LeaveStatusUpdateRequest;
 import api.humanresource.model.response.LeaveResponse;
 
 import java.util.List;
@@ -12,4 +13,11 @@ public interface LeaveService {
     List<LeaveResponse> findLeavesById(String id);
 
 
+    List<LeaveResponse> getPendingLeaves();
+
+    List<LeaveResponse> getApprovedLeaves();
+
+    List<LeaveResponse> getRejectedLeaves();
+
+    void updateStatus(LeaveStatusUpdateRequest leaveStatusUpdateRequest);
 }

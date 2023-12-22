@@ -60,6 +60,13 @@ Run the Spring Boot Application
 ```bash
  ./mvnw spring-boot:run
 ```
+
+## Postman Collection
+
+This repository contains the [Postman](https://www.postman.com/) collection.
+
+You can download the collection [here](https://github.com/AbdullahCelikcode/Human-Resource-RESTAPI/files/13756307/HR.Management.postman_collection.zip).
+
 ## Routes List:
 
 ### Employee (/api)

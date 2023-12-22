@@ -1,7 +1,7 @@
 
-# Human Resource Api
+# HR-Management-App
 
-Bu proje bir insan kaynakları uygulamasının Back-End tarafıdır.. 
+This project is to improve the skills of my mentees and to give them new perspectives. This is an application designed to streamline human resource operations within an organization. It offers comprehensive features to manage personnel information, track employee details, and facilitate leave management efficiently
 
 ## Tech Stack
 

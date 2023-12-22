@@ -4,7 +4,6 @@
 This project is to improve the skills of my mentees and to give them new perspectives. This is an application designed to streamline human resource operations within an organization. It offers comprehensive features to manage personnel information, track employee details, and facilitate leave management efficiently
 
 ## Tech Stack
-
 **Framework**
 * Core
     * Spring 
@@ -33,6 +32,13 @@ This project is to improve the skills of my mentees and to give them new perspec
 
 **APIs Interaction Platform**
 * Postman
+
+## Before Running 
+Run the SQL scripts
+```bash
+ /path/to/Human-Resource-RESTAPI/src/main/resources/db/database.sql
+ /path/to/Human-Resource-RESTAPI/src/main/resources/db/database2.sql
+```
 ## Installation and Running the Project
 
 Clone the Repository
@@ -47,11 +53,7 @@ Build and Install the Project
   ./mvnw clean install
 ```
 
-Run the SQL scripts
 
-```bash
- database1 and database2 
-```
 
 Run the Spring Boot Application
 

@@ -53,7 +53,7 @@ class EmployeeController {
     }
 
     @GetMapping("/employees")
-    public ResponseEntity<List<EmployeesResponse>> getAllEmployees() {
+    public ResponseEntity<List<EmployeesResponse>> getEmployees() {
 
         return ResponseEntity.ok(employeeService.getAllEmployees());
     }
@@ -62,6 +62,7 @@ class EmployeeController {
     public void getBirthday() {
         employeeEmailService.sendBirthdayEmail();
     }
+
     @GetMapping("/daily")
     public ResponseEntity<List<EmployeesResponse>> getEmployeesOnLeave() {
         return ResponseEntity.ok(employeeService.getEmployeesOnLeave());

@@ -65,7 +65,7 @@ Run the Spring Boot Application
 
 This repository contains the [Postman](https://www.postman.com/) collection.
 
-You can download the collection [here](https://github.com/AbdullahCelikcode/Human-Resource-RESTAPI/files/13756307/HR.Management.postman_collection.zip).
+You can download the collection [here](https://documenter.getpostman.com/view/27272819/2s9YkrcL2f).
 
 ## Routes List:
 

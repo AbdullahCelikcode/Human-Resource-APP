@@ -63,7 +63,7 @@ Run the Spring Boot Application
 
 ## Postman Collection
 
-This repository contains the [Postman](https://documenter.getpostman.com/view/27272819/2s9YkrcL2) collection.
+This repository contains the [Postman](https://documenter.getpostman.com/view/27272819/2s9YkrcL2f) collection.
 
 
 ## Routes List:

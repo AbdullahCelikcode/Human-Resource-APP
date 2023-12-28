@@ -30,8 +30,11 @@ class LeaveRepositoryImpl implements LeaveRepository {
             "UPDATE  `LEAVE` SET START_DATE=:startDate,FINISH_DATE=:finishDate,TYPE=:type," +
                     "EXPLANATION=:explanation,STATUS=:status,EMPLOYEE_ID=:employeeId WHERE ID=:id";
     private static final String GET_LEAVES_QUERY =
-            "SELECT ID, START_DATE, FINISH_DATE,EXPLANATION,STATUS, TYPE" +
-                    " FROM `LEAVE` WHERE EMPLOYEE_ID=:employeeId ";
+            "SELECT ID, START_DATE, FINISH_DATE, EXPLANATION, STATUS, TYPE " +
+                    "FROM `LEAVE`" +
+                    " WHERE EMPLOYEE_ID=:employeeId " +
+                    "ORDER BY ID" +
+                    " LIMIT :limit OFFSET :offset ";
 
     private static final String IS_EXIST_BY_DATE_QUERY = "SELECT " +
             "    IF(EXISTS (SELECT START_DATE,FINISH_DATE,EMPLOYEE_ID FROM `LEAVE` " +
@@ -76,10 +79,13 @@ class LeaveRepositoryImpl implements LeaveRepository {
 
 
     @Override
-    public List<LeaveEntity> findLeavesByEmployeeId(String employeeId) {
+    public List<LeaveEntity> findLeavesByEmployeeId(String employeeId, Integer pageNumber, Integer pageSize) {
+
         try (Connection con = sql2o.open(); Query query = con.createQuery(GET_LEAVES_QUERY)) {
             return query
                     .addParameter(LeaveMapper.EMPLOYEE_ID.getField(), employeeId)
+                    .addParameter("offset", pageNumber)
+                    .addParameter("limit", pageSize)
                     .setColumnMappings(LeaveMapper.getMapping())
                     .executeAndFetch(LeaveEntity.class);
         }

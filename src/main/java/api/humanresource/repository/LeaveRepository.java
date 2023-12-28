@@ -13,7 +13,7 @@ public interface LeaveRepository {
     void update(LeaveEntity leaveEntity);
 
 
-    List<LeaveEntity> findLeavesByEmployeeId(String employeeId);
+    List<LeaveEntity> findLeavesByEmployeeId(String employeeId,Integer pageNumber,Integer pageSize);
 
     Optional<LeaveEntity> findLeavesById(Long id);
 

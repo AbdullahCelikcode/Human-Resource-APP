@@ -2,6 +2,7 @@ package api.humanresource.controller;
 
 import api.humanresource.model.enums.LeaveStatus;
 import api.humanresource.model.request.LeaveCreateRequest;
+import api.humanresource.model.request.LeavePaginationAndFilterRequest;
 import api.humanresource.model.request.LeaveStatusUpdateRequest;
 import api.humanresource.model.response.EmployeesResponse;
 import api.humanresource.model.response.LeaveAllResponse;
@@ -45,11 +46,12 @@ class LeaveController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/employee/{employeeId}")
-    public ResponseEntity<List<LeaveEmployeeResponse>> getLeaves(@PathVariable @UUID String employeeId) {
+    @PostMapping("/employee/{employeeId}")
 
-        return ResponseEntity.ok(leaveService.findLeavesByEmployeeId(employeeId));
+    public ResponseEntity<List<LeaveEmployeeResponse>> getLeaves(@PathVariable @UUID String employeeId,
+                                                                 @Valid @RequestBody LeavePaginationAndFilterRequest leavePaginationAndFilterRequest) {
 
+        return ResponseEntity.ok(leaveService.findLeavesByEmployeeId(employeeId, leavePaginationAndFilterRequest));
     }
 
     @GetMapping("/pending")

@@ -85,7 +85,7 @@ You see the collection [here](https://documenter.getpostman.com/view/27272819/2s
 | Method     | URL                               | Action                                                      |
 |------------|-----------------------------------|-------------------------------------------------------------|
 | `POST`     |                                   | `App\Http\Controller\LeaveController@createLeave`           |
-| `PUT`      | `/status`                         | `App\Http\Controller\LeaveController@updateStatus`          |
+| `PUT`      | `/leaveStatus`                         | `App\Http\Controller\LeaveController@updateStatus`          |
 | `GET`      | `/employee/{employeeId}`          | `App\Http\Controller\LeaveController@getLeaves`             |
 | `GET`      | `/pending`                        | `App\Http\Controller\LeaveController@getPendingLeaves`      |
 | `GET`      | `/approved`                        | `App\Http\Controller\LeaveController@getApprovedLeaves`    |

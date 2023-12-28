@@ -1,19 +1,19 @@
 package api.humanresource.model.request;
 
-import api.humanresource.model.enums.Status;
+import api.humanresource.model.enums.LeaveStatus;
 import jakarta.validation.constraints.NotNull;
 
 public class LeaveStatusUpdateRequest {
     @NotNull
-    private Integer id;
+    private Long id;
     @NotNull
-    private Status status;
+    private LeaveStatus leaveStatus;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public Status getStatus() {
-        return status;
+    public LeaveStatus getStatus() {
+        return leaveStatus;
     }
 }

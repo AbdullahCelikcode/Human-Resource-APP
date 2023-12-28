@@ -1,7 +1,7 @@
 package api.humanresource.repository;
 
 import api.humanresource.model.entity.LeaveEntity;
-import api.humanresource.model.enums.Status;
+import api.humanresource.model.enums.LeaveStatus;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,11 +15,11 @@ public interface LeaveRepository {
 
     List<LeaveEntity> findLeavesByEmployeeId(String employeeId);
 
-    Optional<LeaveEntity> findLeavesById(Integer id);
+    Optional<LeaveEntity> findLeavesById(Long id);
 
     boolean isExistByDate(LocalDate startDate, LocalDate finishDate, String employeeId);
 
-    List<LeaveEntity> findLeavesByStatus(Status status);
+    List<LeaveEntity> findLeavesByStatus(LeaveStatus leaveStatus);
 
 
 

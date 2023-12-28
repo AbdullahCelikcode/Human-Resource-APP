@@ -10,7 +10,7 @@ import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.UUID;
 
 import java.time.LocalDate;
-@SuppressWarnings("unused")
+
 public class LeaveCreateRequest {
 
     @NotNull

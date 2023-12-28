@@ -5,7 +5,7 @@ import api.humanresource.model.enums.Role;
 
 import java.time.LocalDate;
 
-@SuppressWarnings("unused")
+
 public class EmployeesResponse {
 
     private String id;

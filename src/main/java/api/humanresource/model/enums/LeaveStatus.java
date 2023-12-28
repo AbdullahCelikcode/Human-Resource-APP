@@ -1,6 +1,6 @@
 package api.humanresource.model.enums;
 
-public enum Status {
+public enum LeaveStatus {
     APPROVED,
     REJECTED,
     PENDING

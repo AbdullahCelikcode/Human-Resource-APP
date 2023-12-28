@@ -1,7 +1,7 @@
 package api.humanresource.repository.impl;
 
 import api.humanresource.model.entity.LeaveEntity;
-import api.humanresource.model.enums.Status;
+import api.humanresource.model.enums.LeaveStatus;
 import api.humanresource.repository.LeaveRepository;
 import api.humanresource.repository.mapping.LeaveMapper;
 import org.springframework.stereotype.Repository;
@@ -24,26 +24,26 @@ class LeaveRepositoryImpl implements LeaveRepository {
 
 
     private static final String INSERT_QUERY =
-            "INSERT INTO LEAVE_TABLE (START_DATE,FINISH_DATE,TYPE,EXPLANATION,STATUS,EMPLOYEE_ID) " +
+            "INSERT INTO `LEAVE` (START_DATE,FINISH_DATE,TYPE,EXPLANATION,STATUS,EMPLOYEE_ID) " +
                     "VALUES (:startDate,:finishDate,:type,:explanation,:status,:employeeId)";
     private static final String UPDATE_QUERY =
-            "UPDATE  LEAVE_TABLE SET START_DATE=:startDate,FINISH_DATE=:finishDate,TYPE=:type," +
+            "UPDATE  `LEAVE` SET START_DATE=:startDate,FINISH_DATE=:finishDate,TYPE=:type," +
                     "EXPLANATION=:explanation,STATUS=:status,EMPLOYEE_ID=:employeeId WHERE ID=:id";
     private static final String GET_LEAVES_QUERY =
             "SELECT ID, START_DATE, FINISH_DATE,EXPLANATION,STATUS, TYPE" +
-                    " FROM LEAVE_TABLE WHERE EMPLOYEE_ID=:employeeId ";
+                    " FROM `LEAVE` WHERE EMPLOYEE_ID=:employeeId ";
 
     private static final String IS_EXIST_BY_DATE_QUERY = "SELECT " +
-            "    IF(EXISTS (SELECT START_DATE,FINISH_DATE,EMPLOYEE_ID FROM leave_table " +
+            "    IF(EXISTS (SELECT START_DATE,FINISH_DATE,EMPLOYEE_ID FROM `LEAVE` " +
             "        WHERE EMPLOYEE_ID=:employeeId AND (START_DATE=:startDate" +
             "        OR FINISH_DATE=:finishDate))" +
             ", 'TRUE', 'FALSE') ";
 
     private static final String GET_LEAVES_ON_PENDING = "SELECT ID, START_DATE, FINISH_DATE,EXPLANATION,STATUS, TYPE,EMPLOYEE_ID" +
-            "             FROM LEAVE_TABLE WHERE STATUS=:status ";
+            "             FROM `LEAVE` WHERE STATUS=:status ";
 
     private static final String FIND_BY_ID_QUERY = "SELECT ID,START_DATE, FINISH_DATE,EXPLANATION,STATUS,TYPE,EMPLOYEE_ID " +
-            " FROM LEAVE_TABLE WHERE ID=:id";
+            " FROM `LEAVE` WHERE ID=:id";
 
 
     public void save(LeaveEntity leaveEntity) {
@@ -86,7 +86,7 @@ class LeaveRepositoryImpl implements LeaveRepository {
     }
 
     @Override
-    public Optional<LeaveEntity> findLeavesById(Integer id) {
+    public Optional<LeaveEntity> findLeavesById(Long id) {
         try (Connection con = sql2o.open(); Query query = con.createQuery(FIND_BY_ID_QUERY)) {
             return Optional.ofNullable(query
                     .addParameter(LeaveMapper.ID.getField(), id)
@@ -108,7 +108,7 @@ class LeaveRepositoryImpl implements LeaveRepository {
     }
 
     @Override
-    public List<LeaveEntity> findLeavesByStatus(Status status) {
+    public List<LeaveEntity> findLeavesByStatus(LeaveStatus status) {
         try (Connection con = sql2o.open(); Query query = con.createQuery(GET_LEAVES_ON_PENDING)) {
             return query
                     .addParameter(LeaveMapper.STATUS.getField(), status)

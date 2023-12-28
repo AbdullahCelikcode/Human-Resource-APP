@@ -10,9 +10,9 @@ import api.humanresource.service.EmployeeEmailService;
 import api.humanresource.service.EmployeeService;
 import api.humanresource.util.exception.GlobalException;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -24,17 +24,19 @@ class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
     private final EmployeeEmailService employeeEmailService;
+    private final PasswordEncoder passwordEncoder;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, EmployeeEmailService employeeEmailService) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, EmployeeEmailService employeeEmailService, PasswordEncoder passwordEncoder) {
         this.employeeRepository = employeeRepository;
         this.employeeEmailService = employeeEmailService;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
     @Override
     public void createEmployee(EmployeeCreateRequest employeeCreateRequest) {
         this.isEmailAlreadyExist(employeeCreateRequest.getEmail());
-
+        String password = RandomStringUtils.random(9, true, true);
         EmployeeEntity employeeEntity = new EmployeeEntity(
                 UUID.randomUUID().toString(),
                 employeeCreateRequest.getFirstname(),
@@ -44,11 +46,16 @@ class EmployeeServiceImpl implements EmployeeService {
                 employeeCreateRequest.getRole(),
                 employeeCreateRequest.getBirthday(),
                 this.generateUsername(),
-                RandomStringUtils.random(9, true, true)
+                passwordEncoder.encode(password)
         );
+        try {
+            employeeRepository.save(employeeEntity);
+            employeeEmailService.sendUsernameAndPasswordMail(employeeEntity, password);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
-        employeeEmailService.sendUsernameAndPasswordMail(employeeEntity);
-        employeeRepository.save(employeeEntity);
+
     }
 
     private String generateUsername() {
@@ -86,10 +93,10 @@ class EmployeeServiceImpl implements EmployeeService {
     public void updatePassword(String id, EmployeePasswordUpdateRequest employeePasswordUpdateRequest) {
         EmployeeEntity employeeEntity = employeeRepository.findById(id)
                 .orElseThrow(() -> new GlobalException("Employee  is not found "));
-        if (!employeeEntity.getPassword().equals(employeePasswordUpdateRequest.getOldPassword())) {
+        if (!passwordEncoder.matches(employeePasswordUpdateRequest.getOldPassword(), employeeEntity.getPassword())) {
             throw new GlobalException("Password is Wrong ");
         }
-        employeeEntity.setPassword(employeePasswordUpdateRequest.getNewPassword());
+        employeeEntity.setPassword(passwordEncoder.encode(employeePasswordUpdateRequest.getNewPassword()));
         employeeRepository.update(employeeEntity);
     }
 
@@ -115,19 +122,4 @@ class EmployeeServiceImpl implements EmployeeService {
     }
 
 
-    @Override
-    public List<EmployeesResponse> getEmployeesOnLeave() {
-        List<EmployeeEntity> employeeEntities = employeeRepository.findEmployeesOnLeaveByDate(LocalDate.now());
-        return employeeEntities.stream()
-                .map(employeeEntity -> new EmployeesResponse(
-                        employeeEntity.getId(),
-                        employeeEntity.getFirstname(),
-                        employeeEntity.getLastname(),
-                        employeeEntity.getEmail(),
-                        employeeEntity.getGender(),
-                        employeeEntity.getBirthday(),
-                        employeeEntity.getRole(),
-                        employeeEntity.getUsername()))
-                .toList();
-    }
 }

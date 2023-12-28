@@ -17,5 +17,5 @@ public interface EmployeeService {
 
     List<EmployeesResponse> getAllEmployees();
 
-    List<EmployeesResponse> getEmployeesOnLeave();
+
 }

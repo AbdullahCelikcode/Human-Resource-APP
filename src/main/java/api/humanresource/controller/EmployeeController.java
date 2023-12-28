@@ -63,8 +63,5 @@ class EmployeeController {
         employeeEmailService.sendBirthdayEmail();
     }
 
-    @GetMapping("/daily")
-    public ResponseEntity<List<EmployeesResponse>> getEmployeesOnLeave() {
-        return ResponseEntity.ok(employeeService.getEmployeesOnLeave());
-    }
+
 }

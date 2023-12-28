@@ -1,8 +1,11 @@
 package api.humanresource.controller;
 
+import api.humanresource.model.enums.LeaveStatus;
 import api.humanresource.model.request.LeaveCreateRequest;
 import api.humanresource.model.request.LeaveStatusUpdateRequest;
-import api.humanresource.model.response.LeaveResponse;
+import api.humanresource.model.response.EmployeesResponse;
+import api.humanresource.model.response.LeaveAllResponse;
+import api.humanresource.model.response.LeaveEmployeeResponse;
 import api.humanresource.service.LeaveService;
 import jakarta.validation.Valid;
 import org.hibernate.validator.constraints.UUID;
@@ -43,24 +46,29 @@ class LeaveController {
     }
 
     @GetMapping("/employee/{employeeId}")
-    public ResponseEntity<List<LeaveResponse>> getLeaves(@PathVariable @UUID String employeeId) {
-        return ResponseEntity.ok(leaveService.findLeavesById(employeeId));
+    public ResponseEntity<List<LeaveEmployeeResponse>> getLeaves(@PathVariable @UUID String employeeId) {
+
+        return ResponseEntity.ok(leaveService.findLeavesByEmployeeId(employeeId));
 
     }
 
     @GetMapping("/pending")
-    public ResponseEntity<List<LeaveResponse>> getPendingLeaves() {
-        return ResponseEntity.ok(leaveService.getPendingLeaves());
+    public ResponseEntity<List<LeaveAllResponse>> getPendingLeaves() {
+        return ResponseEntity.ok(leaveService.getLeavesByStatus(LeaveStatus.PENDING));
     }
 
     @GetMapping("/approved")
-    public ResponseEntity<List<LeaveResponse>> getApprovedLeaves() {
-        return ResponseEntity.ok(leaveService.getApprovedLeaves());
+    public ResponseEntity<List<LeaveAllResponse>> getApprovedLeaves() {
+        return ResponseEntity.ok(leaveService.getLeavesByStatus(LeaveStatus.APPROVED));
     }
 
     @GetMapping("/rejected")
-    public ResponseEntity<List<LeaveResponse>> getRejectedLeaves() {
-        return ResponseEntity.ok(leaveService.getRejectedLeaves());
+    public ResponseEntity<List<LeaveAllResponse>> getRejectedLeaves() {
+        return ResponseEntity.ok(leaveService.getLeavesByStatus(LeaveStatus.REJECTED));
     }
 
+    @GetMapping("/daily")
+    public ResponseEntity<List<EmployeesResponse>> getEmployeesOnLeave() {
+        return ResponseEntity.ok(leaveService.getEmployeesOnLeave());
+    }
 }

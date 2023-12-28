@@ -1,32 +1,32 @@
-package api.humanresource.model.entity;
+package api.humanresource.model.response;
 
 import api.humanresource.model.enums.LeaveStatus;
 import api.humanresource.model.enums.LeaveType;
 
 import java.time.LocalDate;
 
-
-public class LeaveEntity {
-
+public class LeaveAllResponse {
     private Long id;
     private LocalDate startDate;
     private LocalDate finishDate;
-    private LeaveType type;
+
     private String explanation;
 
     private LeaveStatus leaveStatus;
+    private LeaveType type;
     private String employeeId;
 
 
-    public LeaveEntity(LocalDate startDate, LocalDate finishDate, LeaveType type, String explanation, LeaveStatus leaveStatus, String employeeId) {
-
+    public LeaveAllResponse(Long id, LocalDate startDate, LocalDate finishDate, String explanation, LeaveStatus leaveStatus, LeaveType type, String employeeId) {
+        this.id = id;
         this.startDate = startDate;
         this.finishDate = finishDate;
-        this.type = type;
         this.explanation = explanation;
         this.leaveStatus = leaveStatus;
+        this.type = type;
         this.employeeId = employeeId;
     }
+
 
     public Long getId() {
         return id;
@@ -36,24 +36,25 @@ public class LeaveEntity {
         this.id = id;
     }
 
+
     public LocalDate getStartDate() {
         return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
     }
 
     public LocalDate getFinishDate() {
         return finishDate;
     }
 
-    public void setFinishDate(LocalDate finishDate) {
-        this.finishDate = finishDate;
-    }
-
     public LeaveType getType() {
         return type;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setFinishDate(LocalDate finishDate) {
+        this.finishDate = finishDate;
     }
 
     public void setType(LeaveType type) {
@@ -68,19 +69,19 @@ public class LeaveEntity {
         this.explanation = explanation;
     }
 
-    public String getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
+    public void setStatus(LeaveStatus leaveStatus) {
+        this.leaveStatus = leaveStatus;
     }
 
     public LeaveStatus getStatus() {
         return leaveStatus;
     }
 
-    public void setStatus(LeaveStatus leaveStatus) {
-        this.leaveStatus = leaveStatus;
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
     }
 }

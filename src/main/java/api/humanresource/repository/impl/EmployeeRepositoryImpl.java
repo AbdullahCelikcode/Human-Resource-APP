@@ -25,28 +25,28 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
 
 
     private static final String INSERT_QUERY =
-            "INSERT INTO EMPLOYEE (ID,FIRST_NAME,LAST_NAME,EMAIL,GENDER,ROLE,BIRTHDAY, USERNAME,PASSWORD ) " +
+            "INSERT INTO `EMPLOYEE` (ID,FIRST_NAME,LAST_NAME,EMAIL,GENDER,ROLE,BIRTHDAY, USERNAME,PASSWORD ) " +
                     "VALUES (:id,:firstname,:lastname,:email,:gender,:role,:birthday ,:username,:password)";
     private static final String UPDATE_QUERY =
-            "UPDATE EMPLOYEE SET FIRST_NAME=:firstname,LAST_NAME=:lastname,EMAIL=:email,GENDER=:gender,ROLE=:role," +
+            "UPDATE `EMPLOYEE` SET FIRST_NAME=:firstname,LAST_NAME=:lastname,EMAIL=:email,GENDER=:gender,ROLE=:role," +
                     "PASSWORD=:password WHERE ID=:id ";
     private static final String FIND_BY_ID_QUERY =
-            "SELECT ID, FIRST_NAME, LAST_NAME, EMAIL, GENDER, ROLE ,USERNAME,PASSWORD FROM EMPLOYEE WHERE id=:id ";
+            "SELECT ID, FIRST_NAME, LAST_NAME, EMAIL, GENDER, ROLE ,USERNAME,PASSWORD FROM `EMPLOYEE` WHERE id=:id ";
 
     private static final String FIND_BY_USERNAME_QUERY =
-            "SELECT ID, FIRST_NAME, LAST_NAME, EMAIL, GENDER, ROLE,USERNAME, PASSWORD FROM EMPLOYEE WHERE USERNAME=:username ";
+            "SELECT ID, FIRST_NAME, LAST_NAME, EMAIL, GENDER, ROLE,USERNAME, PASSWORD FROM `EMPLOYEE` WHERE USERNAME=:username ";
 
-    private static final String FIND_BY_EMAIL_QUERY = "SELECT EMAIL FROM EMPLOYEE WHERE EMAIL=:email ";
+    private static final String FIND_BY_EMAIL_QUERY = "SELECT EMAIL FROM `EMPLOYEE` WHERE EMAIL=:email ";
 
     private static final String FIND_ALL_QUERY =
-            "SELECT ID, FIRST_NAME, LAST_NAME, EMAIL, GENDER, ROLE, BIRTHDAY,USERNAME, PASSWORD FROM EMPLOYEE ";
+            "SELECT ID, FIRST_NAME, LAST_NAME, EMAIL, GENDER, ROLE, BIRTHDAY,USERNAME, PASSWORD FROM `EMPLOYEE` ";
 
     private static final String FIND_ALL_DAILY =
             "SELECT e.ID, e.FIRST_NAME, e.LAST_NAME, e.EMAIL, e.GENDER," +
                     " e.ROLE ,e.USERNAME, e.BIRTHDAY " +
-                    " FROM Employee e INNER JOIN leave_table lt " +
-                    " ON e.ID = lt.EMPLOYEE_ID" +
-                    " WHERE :DATE BETWEEN lt.START_DATE AND lt.FINISH_DATE ";
+                    " FROM `Employee` e INNER JOIN `LEAVE` l " +
+                    " ON e.ID = l.EMPLOYEE_ID" +
+                    " WHERE :DATE BETWEEN l.START_DATE AND l.FINISH_DATE ";
 
 
     @Override
@@ -63,7 +63,10 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
                     .addParameter(EmployeeMapper.USERNAME.getField(), employeeEntity.getUsername())
                     .addParameter(EmployeeMapper.PASSWORD.getField(), employeeEntity.getPassword())
                     .executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+
     }
 
 

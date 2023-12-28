@@ -5,7 +5,7 @@ import api.humanresource.model.entity.LeaveEntity;
 
 public interface EmployeeEmailService {
 
-    void sendUsernameAndPasswordMail(EmployeeEntity employeeEntity);
+    void sendUsernameAndPasswordMail(EmployeeEntity employeeEntity,String password);
 
     void sendBirthdayEmail();
 

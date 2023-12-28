@@ -1,39 +1,37 @@
 package api.humanresource.model.response;
 
+import api.humanresource.model.enums.LeaveStatus;
 import api.humanresource.model.enums.LeaveType;
-import api.humanresource.model.enums.Status;
 
 import java.time.LocalDate;
 
-@SuppressWarnings("unused")
-public class LeaveResponse {
-    private Integer id;
+public class LeaveEmployeeResponse {
+    private Long id;
     private LocalDate startDate;
     private LocalDate finishDate;
 
     private String explanation;
 
-    private Status status;
+    private LeaveStatus leaveStatus;
     private LeaveType type;
-    private String employeeId;
 
 
-    public LeaveResponse(Integer id, LocalDate startDate, LocalDate finishDate, String explanation, Status status, LeaveType type, String employeeId) {
+    public LeaveEmployeeResponse(Long id, LocalDate startDate, LocalDate finishDate, String explanation, LeaveStatus leaveStatus, LeaveType type) {
         this.id = id;
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.explanation = explanation;
-        this.status = status;
+        this.leaveStatus = leaveStatus;
         this.type = type;
-        this.employeeId = employeeId;
+
     }
 
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -70,19 +68,13 @@ public class LeaveResponse {
         this.explanation = explanation;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setStatus(LeaveStatus leaveStatus) {
+        this.leaveStatus = leaveStatus;
     }
 
-    public Status getStatus() {
-        return status;
+    public LeaveStatus getStatus() {
+        return leaveStatus;
     }
 
-    public String getEmployeeId() {
-        return employeeId;
-    }
 
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
-    }
 }

@@ -52,7 +52,7 @@ class EmployeeServiceImpl implements EmployeeService {
             employeeRepository.save(employeeEntity);
             employeeEmailService.sendUsernameAndPasswordMail(employeeEntity, password);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new GlobalException(e.getMessage());
         }
 
 

@@ -1,6 +1,6 @@
 package api.humanresource.service;
 
-import api.humanresource.model.request.EmployeeLoginRequest;
+import api.humanresource.model.request.Employee.EmployeeLoginRequest;
 
 public interface AuthService {
 

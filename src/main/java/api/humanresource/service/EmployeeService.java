@@ -1,8 +1,8 @@
 package api.humanresource.service;
 
-import api.humanresource.model.request.EmployeeCreateRequest;
-import api.humanresource.model.request.EmployeePasswordUpdateRequest;
-import api.humanresource.model.request.EmployeeUpdateRequest;
+import api.humanresource.model.request.Employee.EmployeeCreateRequest;
+import api.humanresource.model.request.Employee.EmployeePasswordUpdateRequest;
+import api.humanresource.model.request.Employee.EmployeeUpdateRequest;
 import api.humanresource.model.response.EmployeesResponse;
 
 import java.util.List;

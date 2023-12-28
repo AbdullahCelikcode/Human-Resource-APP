@@ -1,4 +1,4 @@
-package api.humanresource.model.request;
+package api.humanresource.model.request.Employee;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

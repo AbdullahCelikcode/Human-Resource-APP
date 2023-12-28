@@ -1,6 +1,6 @@
 package api.humanresource.controller;
 
-import api.humanresource.model.request.EmployeeLoginRequest;
+import api.humanresource.model.request.Employee.EmployeeLoginRequest;
 import api.humanresource.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;

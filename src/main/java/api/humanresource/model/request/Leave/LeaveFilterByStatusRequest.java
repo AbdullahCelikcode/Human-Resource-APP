@@ -1,8 +1,8 @@
-package api.humanresource.model.request;
+package api.humanresource.model.request.Leave;
 
 import api.humanresource.model.enums.LeaveStatus;
 
-public class FilterRequest {
+public class LeaveFilterByStatusRequest {
 
     private LeaveStatus status;
 

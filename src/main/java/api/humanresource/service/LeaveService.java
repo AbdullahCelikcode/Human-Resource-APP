@@ -1,9 +1,9 @@
 package api.humanresource.service;
 
 import api.humanresource.model.enums.LeaveStatus;
-import api.humanresource.model.request.LeaveCreateRequest;
-import api.humanresource.model.request.LeavePaginationAndFilterRequest;
-import api.humanresource.model.request.LeaveStatusUpdateRequest;
+import api.humanresource.model.request.Leave.LeaveCreateRequest;
+import api.humanresource.model.request.Leave.LeavePaginationAndFilterRequest;
+import api.humanresource.model.request.Leave.LeaveStatusUpdateRequest;
 import api.humanresource.model.response.EmployeesResponse;
 import api.humanresource.model.response.LeaveAllResponse;
 import api.humanresource.model.response.LeaveEmployeeResponse;

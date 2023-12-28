@@ -1,4 +1,4 @@
-package api.humanresource.model.request;
+package api.humanresource.model.request.Leave;
 
 import api.humanresource.model.enums.LeaveType;
 import com.fasterxml.jackson.annotation.JsonIgnore;

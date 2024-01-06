@@ -51,11 +51,9 @@ class EmployeeServiceImpl implements EmployeeService {
         try {
             employeeRepository.save(employeeEntity);
             employeeEmailService.sendUsernameAndPasswordMail(employeeEntity, password);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             throw new GlobalException(e.getMessage());
         }
-
-
     }
 
     private String generateUsername() {

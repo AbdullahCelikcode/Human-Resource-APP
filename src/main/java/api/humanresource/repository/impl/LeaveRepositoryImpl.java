@@ -4,6 +4,7 @@ import api.humanresource.model.entity.LeaveEntity;
 import api.humanresource.model.enums.LeaveStatus;
 import api.humanresource.repository.LeaveRepository;
 import api.humanresource.repository.mapping.LeaveMapper;
+import api.humanresource.util.exception.GlobalException;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Query;
@@ -59,6 +60,8 @@ class LeaveRepositoryImpl implements LeaveRepository {
                     .addParameter(LeaveMapper.STATUS.getField(), leaveEntity.getStatus())
                     .addParameter(LeaveMapper.EMPLOYEE_ID.getField(), leaveEntity.getEmployeeId())
                     .executeUpdate();
+        } catch (RuntimeException e) {
+            throw new GlobalException(e.getMessage());
         }
     }
 

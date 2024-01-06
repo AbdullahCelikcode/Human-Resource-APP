@@ -3,6 +3,7 @@ package api.humanresource.repository.impl;
 import api.humanresource.model.entity.EmployeeEntity;
 import api.humanresource.repository.EmployeeRepository;
 import api.humanresource.repository.mapping.EmployeeMapper;
+import api.humanresource.util.exception.GlobalException;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Query;
@@ -64,7 +65,7 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
                     .addParameter(EmployeeMapper.PASSWORD.getField(), employeeEntity.getPassword())
                     .executeUpdate();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new GlobalException(e.getMessage());
         }
 
     }

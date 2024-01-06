@@ -62,15 +62,4 @@ class EmployeeEmailServiceImpl implements EmployeeEmailService {
             emailService.send(employeeEntity.getEmail(), subject, content);
         });
     }
-
-    @Override
-    public void sendLeaveStatusChange(LeaveEntity leaveEntity) {
-        EmployeeEntity employeeEntity = employeeRepository.findById(leaveEntity.getEmployeeId()).orElseThrow(() -> new GlobalException("Employee Is Not Exist"));
-        String subject = "Your Leave Information";
-        String content = "Dear " + employeeEntity.getFirstname() + ",\n\n"
-                + "We are pleased to inform you that your leave request is " + leaveEntity.getStatus().toString().toLowerCase() + "\n\n"
-                + "Best regards,\n"
-                + companyName;
-        emailService.send(employeeEntity.getEmail(), subject, content);
-    }
 }

@@ -13,7 +13,7 @@ public class LeaveStatusUpdateRequest {
         return id;
     }
 
-    public LeaveStatus getStatus() {
+    public LeaveStatus getLeaveStatus() {
         return leaveStatus;
     }
 }

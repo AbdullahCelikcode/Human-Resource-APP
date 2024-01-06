@@ -11,7 +11,7 @@ import api.humanresource.model.response.LeaveAllResponse;
 import api.humanresource.model.response.LeaveEmployeeResponse;
 import api.humanresource.repository.EmployeeRepository;
 import api.humanresource.repository.LeaveRepository;
-import api.humanresource.service.EmployeeEmailService;
+import api.humanresource.service.LeaveEmailService;
 import api.humanresource.service.LeaveService;
 import api.humanresource.util.exception.GlobalException;
 import org.springframework.stereotype.Service;
@@ -25,14 +25,13 @@ class LeaveServiceImpl implements LeaveService {
     private final LeaveRepository leaveRepository;
     private final EmployeeRepository employeeRepository;
 
-    private final EmployeeEmailService employeeEmailService;
+    private final LeaveEmailService leaveEmailService;
 
-    public LeaveServiceImpl(LeaveRepository leaveRepository, EmployeeRepository employeeRepository, EmployeeEmailService employeeEmailService) {
+    public LeaveServiceImpl(LeaveRepository leaveRepository, EmployeeRepository employeeRepository, LeaveEmailService leaveEmailService) {
         this.leaveRepository = leaveRepository;
         this.employeeRepository = employeeRepository;
-        this.employeeEmailService = employeeEmailService;
+        this.leaveEmailService = leaveEmailService;
     }
-
 
     @Override
     public void create(LeaveCreateRequest leaveCreateRequest) {
@@ -50,7 +49,12 @@ class LeaveServiceImpl implements LeaveService {
                 LeaveStatus.PENDING,
                 leaveCreateRequest.getEmployeeId()
         );
-        leaveRepository.save(leaveEntity);
+        try {
+            leaveRepository.save(leaveEntity);
+            leaveEmailService.sendLeaveStatusChange(leaveEntity);
+        } catch (RuntimeException e) {
+            throw new GlobalException(e.getMessage());
+        }
     }
 
     private boolean isDublicated(LeaveCreateRequest leaveCreateRequest) {
@@ -62,11 +66,12 @@ class LeaveServiceImpl implements LeaveService {
 
     @Override
     public void updateStatus(LeaveStatusUpdateRequest leaveStatusUpdateRequest) {
-        LeaveEntity leaveEntity = leaveRepository.findLeavesById(leaveStatusUpdateRequest.getId()).
-                orElseThrow(() -> new GlobalException("Leave Is Not Exist"));
-        leaveEntity.setStatus(leaveStatusUpdateRequest.getStatus());
+        LeaveEntity leaveEntity = leaveRepository.findLeavesById(leaveStatusUpdateRequest.getId())
+                .filter(leaveEntity1 -> leaveEntity1.getStatus().equals(leaveStatusUpdateRequest.getLeaveStatus()))
+                .orElseThrow(() -> new GlobalException("Leave Is Not Exist"));
+        leaveEntity.setStatus(leaveStatusUpdateRequest.getLeaveStatus());
         leaveRepository.update(leaveEntity);
-        employeeEmailService.sendLeaveStatusChange(leaveEntity);
+        leaveEmailService.sendLeaveStatusChange(leaveEntity);
     }
 
 

@@ -9,5 +9,5 @@ public interface EmployeeEmailService {
 
     void sendBirthdayEmail();
 
-    void sendLeaveStatusChange(LeaveEntity leaveEntity);
+
 }

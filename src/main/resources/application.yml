@@ -1,14 +1,14 @@
 db:
   url: jdbc:mysql://localhost:3306/human_resource
-  username: hrapp
-  password: hrpassword
+  username: ${DB_USERNAME}
+  password: ${DB_PASSWORD}
 
 spring:
   mail:
     default-encoding: UTF-8
     host: smtp.gmail.com
-    username: humanresource11134@gmail.com
-    password: umwcbduaxzgcwqgl
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
     port: 587
     properties:
       mail:

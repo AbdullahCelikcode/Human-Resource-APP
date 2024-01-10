@@ -4,6 +4,7 @@ import api.humanresource.model.enums.LeaveStatus;
 import api.humanresource.model.request.Leave.LeaveCreateRequest;
 import api.humanresource.model.request.Leave.LeavePaginationAndFilterRequest;
 import api.humanresource.model.request.Leave.LeaveStatusUpdateRequest;
+import api.humanresource.model.request.PaginationRequest;
 import api.humanresource.model.response.EmployeesResponse;
 import api.humanresource.model.response.LeaveAllResponse;
 import api.humanresource.model.response.LeaveEmployeeResponse;
@@ -12,7 +13,6 @@ import jakarta.validation.Valid;
 import org.hibernate.validator.constraints.UUID;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -54,22 +54,22 @@ class LeaveController {
         return ResponseEntity.ok(leaveService.findLeavesByEmployeeId(employeeId, leavePaginationAndFilterRequest));
     }
 
-    @GetMapping("/pending")
-    public ResponseEntity<List<LeaveAllResponse>> getPendingLeaves() {
-        return ResponseEntity.ok(leaveService.getLeavesByStatus(LeaveStatus.PENDING));
+    @PostMapping("/pending")
+    public ResponseEntity<List<LeaveAllResponse>> getPendingLeaves(@Valid @RequestBody PaginationRequest paginationRequest) {
+        return ResponseEntity.ok(leaveService.getLeavesByStatus(LeaveStatus.PENDING, paginationRequest));
     }
 
-    @GetMapping("/approved")
-    public ResponseEntity<List<LeaveAllResponse>> getApprovedLeaves() {
-        return ResponseEntity.ok(leaveService.getLeavesByStatus(LeaveStatus.APPROVED));
+    @PostMapping("/approved")
+    public ResponseEntity<List<LeaveAllResponse>> getApprovedLeaves(@Valid @RequestBody PaginationRequest paginationRequest) {
+        return ResponseEntity.ok(leaveService.getLeavesByStatus(LeaveStatus.APPROVED, paginationRequest));
     }
 
-    @GetMapping("/rejected")
-    public ResponseEntity<List<LeaveAllResponse>> getRejectedLeaves() {
-        return ResponseEntity.ok(leaveService.getLeavesByStatus(LeaveStatus.REJECTED));
+    @PostMapping("/rejected")
+    public ResponseEntity<List<LeaveAllResponse>> getRejectedLeaves(@Valid @RequestBody PaginationRequest paginationRequest) {
+        return ResponseEntity.ok(leaveService.getLeavesByStatus(LeaveStatus.REJECTED, paginationRequest));
     }
 
-    @GetMapping("/daily")
+    @PostMapping("/daily")
     public ResponseEntity<List<EmployeesResponse>> getEmployeesOnLeave() {
         return ResponseEntity.ok(leaveService.getEmployeesOnLeave());
     }

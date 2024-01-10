@@ -4,6 +4,7 @@ import api.humanresource.model.enums.LeaveStatus;
 import api.humanresource.model.request.Leave.LeaveCreateRequest;
 import api.humanresource.model.request.Leave.LeavePaginationAndFilterRequest;
 import api.humanresource.model.request.Leave.LeaveStatusUpdateRequest;
+import api.humanresource.model.request.PaginationRequest;
 import api.humanresource.model.response.EmployeesResponse;
 import api.humanresource.model.response.LeaveAllResponse;
 import api.humanresource.model.response.LeaveEmployeeResponse;
@@ -18,7 +19,7 @@ public interface LeaveService {
 
     List<LeaveEmployeeResponse> findLeavesByEmployeeId(String employeeId,LeavePaginationAndFilterRequest leavePaginationAndFilterRequest);
 
-    List<LeaveAllResponse> getLeavesByStatus(LeaveStatus leaveStatus);
+    List<LeaveAllResponse> getLeavesByStatus(LeaveStatus leaveStatus, PaginationRequest paginationRequest);
 
     List<EmployeesResponse> getEmployeesOnLeave();
 }

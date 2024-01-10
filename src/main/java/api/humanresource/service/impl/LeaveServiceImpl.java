@@ -6,6 +6,7 @@ import api.humanresource.model.enums.LeaveStatus;
 import api.humanresource.model.request.Leave.LeaveCreateRequest;
 import api.humanresource.model.request.Leave.LeavePaginationAndFilterRequest;
 import api.humanresource.model.request.Leave.LeaveStatusUpdateRequest;
+import api.humanresource.model.request.PaginationRequest;
 import api.humanresource.model.response.EmployeesResponse;
 import api.humanresource.model.response.LeaveAllResponse;
 import api.humanresource.model.response.LeaveEmployeeResponse;
@@ -80,43 +81,31 @@ class LeaveServiceImpl implements LeaveService {
         if (employeeRepository.findById(employeeId).isEmpty()) {
             throw new GlobalException("Employee is not exist");
         }
-        int pageSize = leavePaginationAndFilterRequest.getPaginationRequest().getPageSize();
-        int pageNumber = leavePaginationAndFilterRequest.getPaginationRequest().getPageNumber();
 
         List<LeaveEntity> leaveEntities = leaveRepository.findLeavesByEmployeeId(employeeId,
-                ((pageNumber - 1) * pageSize),
-                pageSize);
+                leavePaginationAndFilterRequest.getPaginationRequest().getPageNumber(),
+                leavePaginationAndFilterRequest.getPaginationRequest().getPageSize(),
+                leavePaginationAndFilterRequest.getFilter());
 
-        if (leavePaginationAndFilterRequest.getFilterRequest() == null || leavePaginationAndFilterRequest.getFilterRequest().getStatus() == null) {
-            return leaveEntities.stream()
-                    .map(leaveEntity -> new LeaveEmployeeResponse(
-                            leaveEntity.getId(),
-                            leaveEntity.getStartDate(),
-                            leaveEntity.getFinishDate(),
-                            leaveEntity.getExplanation(),
-                            leaveEntity.getStatus(),
-                            leaveEntity.getType()))
-                    .toList();
 
-        } else {
-            return leaveEntities.stream()
-                    .filter(leaveEntity -> leaveEntity.getStatus() == leavePaginationAndFilterRequest.getFilterRequest().getStatus())
-                    .map(leaveEntity -> new LeaveEmployeeResponse(
-                            leaveEntity.getId(),
-                            leaveEntity.getStartDate(),
-                            leaveEntity.getFinishDate(),
-                            leaveEntity.getExplanation(),
-                            leaveEntity.getStatus(),
-                            leaveEntity.getType()))
-                    .toList();
-
-        }
+        return leaveEntities.stream()
+                .map(leaveEntity -> new LeaveEmployeeResponse(
+                        leaveEntity.getId(),
+                        leaveEntity.getStartDate(),
+                        leaveEntity.getFinishDate(),
+                        leaveEntity.getExplanation(),
+                        leaveEntity.getStatus(),
+                        leaveEntity.getType()))
+                .toList();
     }
 
 
     @Override
-    public List<LeaveAllResponse> getLeavesByStatus(LeaveStatus leaveStatus) {
-        List<LeaveEntity> leaveEntities = leaveRepository.findLeavesByStatus(leaveStatus);
+    public List<LeaveAllResponse> getLeavesByStatus(LeaveStatus leaveStatus, PaginationRequest paginationRequest) {
+        List<LeaveEntity> leaveEntities = leaveRepository.findLeavesByStatus(leaveStatus,
+                paginationRequest.getPageNumber(),
+                paginationRequest.getPageSize());
+
         return leaveEntities.stream().map(leaveEntity -> new LeaveAllResponse(
                         leaveEntity.getId(),
                         leaveEntity.getStartDate(),

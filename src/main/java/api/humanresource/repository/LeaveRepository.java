@@ -2,6 +2,7 @@ package api.humanresource.repository;
 
 import api.humanresource.model.entity.LeaveEntity;
 import api.humanresource.model.enums.LeaveStatus;
+import api.humanresource.model.request.Leave.LeavePaginationAndFilterRequest;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -13,13 +14,18 @@ public interface LeaveRepository {
     void update(LeaveEntity leaveEntity);
 
 
-    List<LeaveEntity> findLeavesByEmployeeId(String employeeId,Integer pageNumber,Integer pageSize);
+    List<LeaveEntity> findLeavesByEmployeeId(String employeeId,
+                                             Integer pageNumber,
+                                             Integer pageSize,
+                                             LeavePaginationAndFilterRequest.LeaveFilter filter);
 
     Optional<LeaveEntity> findLeavesById(Long id);
 
     boolean isExistByDate(LocalDate startDate, LocalDate finishDate, String employeeId);
 
-    List<LeaveEntity> findLeavesByStatus(LeaveStatus leaveStatus);
+    List<LeaveEntity> findLeavesByStatus(LeaveStatus leaveStatus,
+                                         Integer pageNumber,
+                                         Integer pageSize);
 
 
 

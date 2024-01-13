@@ -106,6 +106,7 @@ class LeaveServiceImpl implements LeaveService {
                 paginationRequest.getPageNumber(),
                 paginationRequest.getPageSize());
 
+
         return leaveEntities.stream().map(leaveEntity -> new LeaveAllResponse(
                         leaveEntity.getId(),
                         leaveEntity.getStartDate(),
@@ -113,9 +114,10 @@ class LeaveServiceImpl implements LeaveService {
                         leaveEntity.getExplanation(),
                         leaveEntity.getStatus(),
                         leaveEntity.getType(),
-                        leaveEntity.getEmployeeId()))
+                        employeeRepository.findById(leaveEntity.getEmployeeId()).get().employeeEntityToEmployee()))
                 .toList();
     }
+
 
     @Override
     public List<EmployeesResponse> getEmployeesOnLeave() {

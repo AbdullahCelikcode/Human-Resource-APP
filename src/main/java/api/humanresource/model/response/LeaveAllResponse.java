@@ -14,18 +14,55 @@ public class LeaveAllResponse {
 
     private LeaveStatus leaveStatus;
     private LeaveType type;
-    private String employeeId;
+    private Employee employee;
 
+    public static class Employee {
+        private String firstName;
+        private String lastName;
+        private String employeeId;
 
+        public String getFirstName() {
+            return firstName;
+        }
 
-    public LeaveAllResponse(Long id, LocalDate startDate, LocalDate finishDate, String explanation, LeaveStatus leaveStatus, LeaveType type, String employeeId) {
+        public void setFirstName(String firstName) {
+            this.firstName = firstName;
+        }
+
+        public String getLastName() {
+            return lastName;
+        }
+
+        public void setLastName(String lastName) {
+            this.lastName = lastName;
+        }
+
+        public String getEmployeeId() {
+            return employeeId;
+        }
+
+        public void setEmployeeId(String employeeId) {
+            this.employeeId = employeeId;
+        }
+
+    }
+
+    public LeaveAllResponse(Long id,
+                            LocalDate startDate,
+                            LocalDate finishDate,
+                            String explanation,
+                            LeaveStatus leaveStatus,
+                            LeaveType type,
+                            Employee employee) {
         this.id = id;
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.explanation = explanation;
         this.leaveStatus = leaveStatus;
         this.type = type;
-        this.employeeId = employeeId;
+        this.employee = employee;
+
+
     }
 
 
@@ -78,11 +115,11 @@ public class LeaveAllResponse {
         return leaveStatus;
     }
 
-    public String getEmployeeId() {
-        return employeeId;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }

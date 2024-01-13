@@ -81,11 +81,16 @@ class LeaveServiceImpl implements LeaveService {
         if (employeeRepository.findById(employeeId).isEmpty()) {
             throw new GlobalException("Employee is not exist");
         }
+        LeaveStatus leaveStatus = null;
+
+        if (leavePaginationAndFilterRequest.getFilter() != null) {
+            leaveStatus = leavePaginationAndFilterRequest.getFilter().getLeaveStatus();
+        }
 
         List<LeaveEntity> leaveEntities = leaveRepository.findLeavesByEmployeeId(employeeId,
                 leavePaginationAndFilterRequest.getPaginationRequest().getPageNumber(),
                 leavePaginationAndFilterRequest.getPaginationRequest().getPageSize(),
-                leavePaginationAndFilterRequest.getFilter());
+                leaveStatus);
 
 
         return leaveEntities.stream()

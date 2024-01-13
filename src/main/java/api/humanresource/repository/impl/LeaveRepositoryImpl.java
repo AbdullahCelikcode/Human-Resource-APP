@@ -2,7 +2,6 @@ package api.humanresource.repository.impl;
 
 import api.humanresource.model.entity.LeaveEntity;
 import api.humanresource.model.enums.LeaveStatus;
-import api.humanresource.model.request.Leave.LeavePaginationAndFilterRequest;
 import api.humanresource.repository.LeaveRepository;
 import api.humanresource.repository.mapping.LeaveMapper;
 import api.humanresource.util.exception.GlobalException;
@@ -47,10 +46,10 @@ class LeaveRepositoryImpl implements LeaveRepository {
 
     private static final String GET_LEAVES_BY_STATUS =
             " SELECT ID, START_DATE, FINISH_DATE,EXPLANATION,STATUS, TYPE,EMPLOYEE_ID" +
-            " FROM `LEAVE`  " +
-            " WHERE STATUS=:status  " +
-            " ORDER BY ID  " +
-             " LIMIT :limit OFFSET :offset ";
+                    " FROM `LEAVE`  " +
+                    " WHERE STATUS=:status  " +
+                    " ORDER BY ID  " +
+                    " LIMIT :limit OFFSET :offset ";
 
     private static final String FIND_BY_ID_QUERY = "SELECT ID,START_DATE, FINISH_DATE,EXPLANATION,STATUS,TYPE,EMPLOYEE_ID " +
             " FROM `LEAVE` WHERE ID=:id";
@@ -91,12 +90,9 @@ class LeaveRepositoryImpl implements LeaveRepository {
     public List<LeaveEntity> findLeavesByEmployeeId(String employeeId,
                                                     Integer pageNumber,
                                                     Integer pageSize,
-                                                    LeavePaginationAndFilterRequest.LeaveFilter filter) {
+                                                    LeaveStatus leaveStatus) {
 
-        LeaveStatus leaveStatus = null;
-        if (filter != null && filter.getLeaveStatus() != null) {
-            leaveStatus = filter.getLeaveStatus();
-        }
+
         try (Connection con = sql2o.open(); Query query = con.createQuery(GET_LEAVES_QUERY)) {
             return query
                     .addParameter(LeaveMapper.EMPLOYEE_ID.getField(), employeeId)

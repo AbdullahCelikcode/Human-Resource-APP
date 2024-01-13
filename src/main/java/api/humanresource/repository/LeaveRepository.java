@@ -17,7 +17,7 @@ public interface LeaveRepository {
     List<LeaveEntity> findLeavesByEmployeeId(String employeeId,
                                              Integer pageNumber,
                                              Integer pageSize,
-                                             LeavePaginationAndFilterRequest.LeaveFilter filter);
+                                            LeaveStatus leaveStatus);
 
     Optional<LeaveEntity> findLeavesById(Long id);
 

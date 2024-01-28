@@ -1,9 +1,9 @@
 package api.humanresource.controller;
 
 import api.humanresource.model.enums.LeaveStatus;
-import api.humanresource.model.request.Leave.LeaveCreateRequest;
-import api.humanresource.model.request.Leave.LeavePaginationAndFilterRequest;
-import api.humanresource.model.request.Leave.LeaveStatusUpdateRequest;
+import api.humanresource.model.request.leave.LeaveCreateRequest;
+import api.humanresource.model.request.leave.LeavesListRequest;
+import api.humanresource.model.request.leave.LeaveStatusUpdateRequest;
 import api.humanresource.model.request.PaginationRequest;
 import api.humanresource.model.response.EmployeesResponse;
 import api.humanresource.model.response.LeaveAllResponse;
@@ -49,9 +49,9 @@ class LeaveController {
     @PostMapping("/employee/{employeeId}")
 
     public ResponseEntity<List<LeaveEmployeeResponse>> getLeaves(@PathVariable @UUID String employeeId,
-                                                                 @Valid @RequestBody LeavePaginationAndFilterRequest leavePaginationAndFilterRequest) {
+                                                                 @Valid @RequestBody LeavesListRequest leavesListRequest) {
 
-        return ResponseEntity.ok(leaveService.findLeavesByEmployeeId(employeeId, leavePaginationAndFilterRequest));
+        return ResponseEntity.ok(leaveService.findLeavesByEmployeeId(employeeId, leavesListRequest));
     }
 
     @PostMapping("/pending")

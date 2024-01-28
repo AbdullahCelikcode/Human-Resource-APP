@@ -1,4 +1,4 @@
-package api.humanresource.model.request.Employee;
+package api.humanresource.model.request.employee;
 
 import api.humanresource.model.enums.Gender;
 import api.humanresource.model.enums.Role;

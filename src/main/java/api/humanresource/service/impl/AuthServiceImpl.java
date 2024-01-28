@@ -1,7 +1,7 @@
 package api.humanresource.service.impl;
 
 import api.humanresource.model.entity.EmployeeEntity;
-import api.humanresource.model.request.Employee.EmployeeLoginRequest;
+import api.humanresource.model.request.employee.EmployeeLoginRequest;
 import api.humanresource.repository.EmployeeRepository;
 import api.humanresource.service.AuthService;
 import api.humanresource.util.exception.GlobalException;

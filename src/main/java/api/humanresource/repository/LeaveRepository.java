@@ -2,7 +2,6 @@ package api.humanresource.repository;
 
 import api.humanresource.model.entity.LeaveEntity;
 import api.humanresource.model.enums.LeaveStatus;
-import api.humanresource.model.request.Leave.LeavePaginationAndFilterRequest;
 
 import java.time.LocalDate;
 import java.util.List;

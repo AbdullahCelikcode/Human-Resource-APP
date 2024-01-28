@@ -18,7 +18,12 @@ public class LeaveEntity {
     private String employeeId;
 
 
-    public LeaveEntity(LocalDate startDate, LocalDate finishDate, LeaveType type, String explanation, LeaveStatus leaveStatus, String employeeId) {
+    public LeaveEntity(LocalDate startDate,
+                       LocalDate finishDate,
+                       LeaveType type,
+                       String explanation,
+                       LeaveStatus leaveStatus,
+                       String employeeId) {
 
         this.startDate = startDate;
         this.finishDate = finishDate;

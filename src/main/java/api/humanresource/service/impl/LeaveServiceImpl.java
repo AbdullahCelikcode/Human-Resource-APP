@@ -1,12 +1,13 @@
 package api.humanresource.service.impl;
 
+import api.humanresource.model.EmployeeEntityToEmployee;
 import api.humanresource.model.entity.EmployeeEntity;
 import api.humanresource.model.entity.LeaveEntity;
 import api.humanresource.model.enums.LeaveStatus;
-import api.humanresource.model.request.Leave.LeaveCreateRequest;
-import api.humanresource.model.request.Leave.LeavePaginationAndFilterRequest;
-import api.humanresource.model.request.Leave.LeaveStatusUpdateRequest;
 import api.humanresource.model.request.PaginationRequest;
+import api.humanresource.model.request.leave.LeaveCreateRequest;
+import api.humanresource.model.request.leave.LeaveStatusUpdateRequest;
+import api.humanresource.model.request.leave.LeavesListRequest;
 import api.humanresource.model.response.EmployeesResponse;
 import api.humanresource.model.response.LeaveAllResponse;
 import api.humanresource.model.response.LeaveEmployeeResponse;
@@ -77,19 +78,19 @@ class LeaveServiceImpl implements LeaveService {
 
 
     @Override
-    public List<LeaveEmployeeResponse> findLeavesByEmployeeId(String employeeId, LeavePaginationAndFilterRequest leavePaginationAndFilterRequest) {
+    public List<LeaveEmployeeResponse> findLeavesByEmployeeId(String employeeId, LeavesListRequest leavesListRequest) {
         if (employeeRepository.findById(employeeId).isEmpty()) {
             throw new GlobalException("Employee is not exist");
         }
         LeaveStatus leaveStatus = null;
 
-        if (leavePaginationAndFilterRequest.getFilter() != null) {
-            leaveStatus = leavePaginationAndFilterRequest.getFilter().getLeaveStatus();
+        if (leavesListRequest.getFilter() != null) {
+            leaveStatus = leavesListRequest.getFilter().getStatus();
         }
 
         List<LeaveEntity> leaveEntities = leaveRepository.findLeavesByEmployeeId(employeeId,
-                leavePaginationAndFilterRequest.getPaginationRequest().getPageNumber(),
-                leavePaginationAndFilterRequest.getPaginationRequest().getPageSize(),
+                leavesListRequest.getPagination().getPageNumber(),
+                leavesListRequest.getPagination().getPageSize(),
                 leaveStatus);
 
 
@@ -119,7 +120,7 @@ class LeaveServiceImpl implements LeaveService {
                         leaveEntity.getExplanation(),
                         leaveEntity.getStatus(),
                         leaveEntity.getType(),
-                        employeeRepository.findById(leaveEntity.getEmployeeId()).get().employeeEntityToEmployee()))
+                        EmployeeEntityToEmployee.toEmployee(employeeRepository.findById(leaveEntity.getEmployeeId()).get())))
                 .toList();
     }
 

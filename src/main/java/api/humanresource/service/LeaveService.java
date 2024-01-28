@@ -1,9 +1,9 @@
 package api.humanresource.service;
 
 import api.humanresource.model.enums.LeaveStatus;
-import api.humanresource.model.request.Leave.LeaveCreateRequest;
-import api.humanresource.model.request.Leave.LeavePaginationAndFilterRequest;
-import api.humanresource.model.request.Leave.LeaveStatusUpdateRequest;
+import api.humanresource.model.request.leave.LeaveCreateRequest;
+import api.humanresource.model.request.leave.LeavesListRequest;
+import api.humanresource.model.request.leave.LeaveStatusUpdateRequest;
 import api.humanresource.model.request.PaginationRequest;
 import api.humanresource.model.response.EmployeesResponse;
 import api.humanresource.model.response.LeaveAllResponse;
@@ -17,7 +17,7 @@ public interface LeaveService {
 
     void updateStatus(LeaveStatusUpdateRequest leaveStatusUpdateRequest);
 
-    List<LeaveEmployeeResponse> findLeavesByEmployeeId(String employeeId,LeavePaginationAndFilterRequest leavePaginationAndFilterRequest);
+    List<LeaveEmployeeResponse> findLeavesByEmployeeId(String employeeId, LeavesListRequest leavesListRequest);
 
     List<LeaveAllResponse> getLeavesByStatus(LeaveStatus leaveStatus, PaginationRequest paginationRequest);
 

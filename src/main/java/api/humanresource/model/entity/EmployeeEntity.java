@@ -2,7 +2,6 @@ package api.humanresource.model.entity;
 
 import api.humanresource.model.enums.Gender;
 import api.humanresource.model.enums.Role;
-import api.humanresource.model.response.LeaveAllResponse;
 
 import java.time.LocalDate;
 
@@ -19,15 +18,6 @@ public class EmployeeEntity {
     private String username;
     private String password;
 
-
-    public LeaveAllResponse.Employee employeeEntityToEmployee() {
-        LeaveAllResponse.Employee employee1 = new LeaveAllResponse.Employee();
-        employee1.setEmployeeId(this.getId());
-        employee1.setFirstName(this.getFirstname());
-        employee1.setLastName(this.getLastname());
-        return employee1;
-
-    }
 
     public EmployeeEntity(String id, String firstname, String lastname, String email, Gender gender, Role role, LocalDate birthday, String username, String password) {
         this.id = id;

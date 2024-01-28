@@ -1,4 +1,4 @@
-package api.humanresource.model.request.Leave;
+package api.humanresource.model.request.leave;
 
 import api.humanresource.model.enums.LeaveStatus;
 import jakarta.validation.constraints.NotNull;

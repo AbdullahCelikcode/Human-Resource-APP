@@ -55,7 +55,6 @@ class EmployeeEmailServiceImpl implements EmployeeEmailService {
         employeesWithBirthdayToday.forEach(employeeEntity -> {
             String subject = "HAPPY BIRTHDAY";
             String content = "Dear " + employeeEntity.getFirstname() + ",\n\n"
-                    + "It’s your special day today, and we couldn't let it pass without celebrating you! \n"
                     + "On behalf of the entire team at Castilla of Developer, we want to wish you a fantastic birthday.\n"
                     + "Happy Birthday! Best wishes from all of us,\n"
                     + companyName;
